@@ -1,0 +1,33 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String?      // null si se registró con Google
+  role      Role     @default(USER)
+  bookings Booking[]
+  createdAt DateTime @default(now())
+}
+
+model Booking {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  tourId    String
+  date      DateTime
+  createdAt DateTime @default(now())
+}

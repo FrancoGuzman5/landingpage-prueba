@@ -1,0 +1,116 @@
+//import { Menu } from "lucide-react";
+"use client"
+import Hero from "@/components/Hero";
+import VideoSection from "@/components/VideoSection";
+import TourCard from "@/components/TourCard";
+import Image from "next/image";
+import {motion, AnimatePresence} from "framer-motion"
+import { useState, useEffect } from "react";
+
+const tours = [
+  { title: "San Pedro Atacama", image: "/images/fondo_sanpedro.jpg", price: "$790.000", slug: "san-pedro" },
+  { title: "Torres del Paine", image: "/images/torres1.jpg", price: "$890.000", slug: "torres-paine" },
+  { title: "Yerba Loca", image: "/images/yerbaloca.jpg", price: "$590.000", slug: "yerba-loca" },
+];
+
+const videos2 = [
+  "/videos/IMG_1188.MOV",
+  "/videos/IMG_1210.MOV",
+  "/videos/IMG_1364.MOV"
+]
+
+export default function Home() {
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() =>{
+    const interval = setInterval(() =>{
+      setCurrent((prev) => (prev + 1) % videos2.length)
+    }, 10000) //cambia cada 10 seg
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <>
+      <Hero />
+      {/* Sección de contenido pequeña */}
+      <section className="bg-kumelenDark py-16">
+        <div className="max-w-6xl mx-auto px-6 text-center space-y-6">
+          <h1 className="font-poppins font-bold text-[50px]">¡Bienvenido a Kumelen Endémico!</h1>
+           <p className="max-w-3xl mx-auto leading-relaxed text-kumelenSand/90 font-poppins text-[40px] mb-0">
+             ¿A QUIENES <span className="font-bold">NOS DIRIGIMOS?</span>
+          </p>
+          <p className="max-w-3xl mx-auto text-white font-artifact text-[60px] mb-[20px]">si buscas</p>
+          <Image
+            src="/images/si_buscas.jpg"   /* tu archivo combinado */
+            alt="Beneficios Kumelen"
+            width={1800}                   /* ancho natural de la imagen */
+            height={300}                   /* alto natural */
+            className="w-full max-w-[1800px] h-auto"  /* escala responsiva */
+            priority
+          />
+          <p className="max-w-3xl mx-auto leading-relaxed text-kumelenSand/90 font-poppins font-extrabold text-[40px]">ENTONCES, KUMELEN ES PARA TI.</p>
+        </div>
+      </section>
+
+      {/* Segunda sección de vídeo */}
+      <section className="relative h-[70vh] w-full overflow-hidden z-10">
+        <AnimatePresence mode="wait"> 
+          <motion.video
+            key={videos2[current]}
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000"
+            src={videos2[current]}
+            autoPlay
+            preload="auto"
+            muted
+            loop
+            playsInline
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 1.5, ease: "easeInOut"}}
+          >  
+            <source src={videos2[current]} type="video/mp4" />
+          </motion.video>
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="relative z-20 flex h-full items-center justify-center px-6">
+          <h2 className="text-4xl text-white font-poppins text-center">Descubre nuevas experiencias</h2>
+        </div>  
+      </section> 
+      
+      {/* Otra sección de contenido */}
+      <section id="vitrina" className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {tours.map((t) => (
+            <TourCard key={t.slug} {...t} />
+          ))}
+        </div>
+      </section>
+      
+      <section id="nosotros" className="bg-kumelenSand/40 py-16">
+        <div className="max-w-[1400px] mx-auto px-4"> {/* alto = ancho*(9/16) */}
+        <Image
+          src="/images/nosotros.png"
+          alt="Somos Kumelen Endémico"
+          width={1400}          /* ancho natural de tu PNG/JPG */
+          height={900}          /* alto natural */
+          className="w-full md:w-[1400px] h-auto mx-auto rounded-xl shadow-lg"
+          priority
+        />
+      </div>
+      </section>
+      {/* Tercera sección de vídeo */}
+      <VideoSection src="/videos/IMG_1188.MOV" id="video-3">
+        <button className="px-6 py-3 bg-kumelenGold text-kumelenDark font-semibold rounded">
+          Reserva ahora
+        </button>
+      </VideoSection>
+      <section id="experiencias" className="min-h-screen bg-kumelenSand text-kumelenDark">
+        <img src="images/street_poster_kumelen.png"/>
+      </section>
+      <section id="contacto" className="min-h-[30vh] bg-white text-kumelenDark flex flex-wrap items-center justify-center gap-4 p-8">
+       <img src="images/rrss_kumelen.png" alt="Foto 1 descripción" className="w-full sm:w-1/2 object-cover rounded-lg shadow-lg"/>
+      </section>
+    </>
+  );
+}
