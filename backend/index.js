@@ -5,7 +5,9 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const authenticate   = require("./middlewares/authMiddleware");
 
-app.use(cors());                    // Permite peticiones desde otros orígenes
+// CORS: en producción se restringe al dominio del frontend (FRONTEND_URL).
+// En local, si FRONTEND_URL no está definida, se permite cualquier origen.
+app.use(cors(process.env.FRONTEND_URL ? { origin: process.env.FRONTEND_URL } : {}));
 app.use(express.json());            // Habilita JSON como formato de entrada/salida
 
 // Importar rutas // Rutas protegidas
