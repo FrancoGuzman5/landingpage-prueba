@@ -14,9 +14,9 @@ const tours = [
 ];
 
 const videos2 = [
-  "/videos/IMG_1188.MOV",
-  "/videos/IMG_1210.MOV",
-  "/videos/IMG_1364.MOV"
+  "/videos/IMG_1188.mp4",
+  "/videos/IMG_1210.mp4",
+  "/videos/IMG_1364.mp4"
 ]
 
 export default function Home() {
@@ -100,7 +100,7 @@ export default function Home() {
       </div>
       </section>
       {/* Tercera sección de vídeo */}
-      <VideoSection src="/videos/IMG_1188.MOV" id="video-3">
+      <VideoSection src="/videos/IMG_1188.mp4" id="video-3">
         <button className="px-6 py-3 bg-kumelenGold text-kumelenDark font-semibold rounded">
           Reserva ahora
         </button>

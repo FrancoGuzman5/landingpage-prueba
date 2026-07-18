@@ -6,9 +6,9 @@ import { useState, useEffect } from "react";
 import {motion, AnimatePresence} from "framer-motion"
 
 const videos = [
-  "/videos/IMG_1134.MOV",
-  "/videos/IMG_1145.MOV",
-  "/videos/IMG_1209.MOV"
+  "/videos/IMG_1134.mp4",
+  "/videos/IMG_1145.mp4",
+  "/videos/IMG_1209.mp4"
 ]
 
 export default function Hero() {
