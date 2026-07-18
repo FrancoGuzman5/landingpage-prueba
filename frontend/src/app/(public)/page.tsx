@@ -79,7 +79,7 @@ export default function Home() {
       </section> 
       
       {/* Otra sección de contenido */}
-      <section id="vitrina" className="py-16 bg-white">
+      <section id="experiencias" className="py-16 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {tours.map((t) => (
             <TourCard key={t.slug} {...t} />
@@ -105,7 +105,7 @@ export default function Home() {
           Reserva ahora
         </button>
       </VideoSection>
-      <section id="experiencias" className="min-h-screen bg-kumelenSand text-kumelenDark">
+      <section id="poster" className="min-h-screen bg-kumelenSand text-kumelenDark">
         <img src="images/street_poster_kumelen.png"/>
       </section>
       <section id="contacto" className="min-h-[30vh] bg-white text-kumelenDark flex flex-wrap items-center justify-center gap-4 p-8">

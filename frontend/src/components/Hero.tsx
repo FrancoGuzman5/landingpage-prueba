@@ -45,22 +45,21 @@ export default function Hero() {
       {/* Overlay para oscurecer un poco el vídeo */}
       <div className="absolute inset-0 bg-black/40" />
 
-      {/* ─── Logo grande ─────────────────────────────── */}
-      <div id="hero-logo" className="relative z-20 flex h-full items-center pl-24">
-        <div className="flex flex-col gap-20">
-         <span className="font-artifact text-[30px] text-kumelenSand tracking-wide pb-[150px] mt-[-325px] pl-16">
-           Conecta<br/> Descubre<br/> Transforma
-         </span>
-        
-          <Image
-            className=""
-            src="/images/LOGOTIPO/Logotipo_full_png/Logo full version 3.png"   /* ajusta nombre/ruta si es png */
-            alt="Kumelen Endémico"
-            width={400}
-            height={120}
-            priority
-          />
-        </div>
+      {/* ─── Texto + Logo grande ─────────────────────── */}
+      {/* flex-col centrado verticalmente: sin márgenes negativos,
+          el texto queda siempre visible en cualquier alto de pantalla */}
+      <div id="hero-logo" className="relative z-20 flex h-full flex-col justify-center gap-16 pb-32 pl-24">
+        <span className="font-artifact text-[30px] leading-relaxed text-kumelenSand tracking-wide pl-16">
+          Conecta<br /> Descubre<br /> Transforma
+        </span>
+
+        <Image
+          src="/images/LOGOTIPO/Logotipo_full_png/Logo full version 3.png"
+          alt="Kumelen Endémico"
+          width={400}
+          height={120}
+          priority
+        />
       </div>
     </section>
   );
