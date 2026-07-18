@@ -3,6 +3,9 @@
 import Hero from "@/components/Hero";
 import VideoSection from "@/components/VideoSection";
 import TourCard from "@/components/TourCard";
+import Filosofia from "@/components/Filosofia";
+import Metodologia from "@/components/Metodologia";
+import Equipo from "@/components/Equipo";
 import Image from "next/image";
 import {motion, AnimatePresence} from "framer-motion"
 import { useState, useEffect } from "react";
@@ -52,6 +55,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Filosofía #ESTARKUMELEN (texto del Brochure) */}
+      <Filosofia />
+
       {/* Segunda sección de vídeo */}
       <section className="relative h-[70vh] w-full overflow-hidden z-10">
         <AnimatePresence mode="wait"> 
@@ -78,6 +84,9 @@ export default function Home() {
         </div>  
       </section> 
       
+      {/* Metodología: los 4 pilares (texto del Brochure) */}
+      <Metodologia />
+
       {/* Otra sección de contenido */}
       <section id="experiencias" className="py-16 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -99,6 +108,9 @@ export default function Home() {
         />
       </div>
       </section>
+      {/* Equipo (datos del Brochure; fotos pendientes) */}
+      <Equipo />
+
       {/* Tercera sección de vídeo */}
       <VideoSection src="/videos/IMG_1188.mp4" id="video-3">
         <button className="px-6 py-3 bg-kumelenGold text-kumelenDark font-semibold rounded">
