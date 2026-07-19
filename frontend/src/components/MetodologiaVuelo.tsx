@@ -4,9 +4,9 @@
 // es el "reloj" de la animación: mueve un avión de papel por una ruta punteada
 // y hace aparecer cada pilar cuando el avión pasa por encima.
 //
-// En móvil (< md) y con "movimiento reducido" activado se muestra la versión
-// estática (Metodologia.tsx) — mismos datos, sin animación. Esa decisión se
-// toma 100% por CSS (motion-safe) para evitar mismatches servidor/cliente.
+// En móvil (< md) se muestra la versión estática (Metodologia.tsx) — mismos
+// datos, sin animación. El corte se decide 100% por CSS (breakpoint md) para
+// evitar mismatches servidor/cliente.
 "use client";
 
 import { useRef } from "react";
@@ -125,18 +125,20 @@ export default function MetodologiaVuelo() {
 
   return (
     <>
-      {/* Versión estática: móvil siempre, y desktop si el sistema pide
-          "movimiento reducido". Decidido por CSS para evitar hydration mismatch. */}
-      <div className="md:motion-safe:hidden">
+      {/* Versión estática solo en móvil. Decisión de producto (2026-07):
+          el vuelo se muestra a todos en desktop, sin depender de
+          prefers-reduced-motion — la animación es scroll-driven (el usuario
+          la controla), riesgo vestibular bajo. */}
+      <div className="md:hidden">
         <Metodologia />
       </div>
 
-      {/* Desktop con animaciones permitidas: escenario pineado. Cambiá el
-          alto (h-[220vh]) para alargar/acortar el trayecto de scroll. */}
+      {/* Desktop: escenario pineado. Cambiá el alto (h-[220vh]) para
+          alargar/acortar el trayecto de scroll. */}
       <section
         id="metodologia-vuelo"
         ref={ref}
-        className="relative hidden md:motion-safe:block h-[220vh] bg-kumelenBrown"
+        className="relative hidden md:block h-[220vh] bg-kumelenBrown"
       >
         <div className="sticky top-0 h-screen overflow-hidden">
           {/* Título */}
