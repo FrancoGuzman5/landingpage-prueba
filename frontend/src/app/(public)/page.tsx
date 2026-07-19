@@ -4,7 +4,7 @@ import Hero from "@/components/Hero";
 import VideoSection from "@/components/VideoSection";
 import TourCard from "@/components/TourCard";
 import Filosofia from "@/components/Filosofia";
-import Metodologia from "@/components/Metodologia";
+import MetodologiaVuelo from "@/components/MetodologiaVuelo";
 import Equipo from "@/components/Equipo";
 import Image from "next/image";
 import {motion, AnimatePresence} from "framer-motion"
@@ -84,8 +84,8 @@ export default function Home() {
         </div>  
       </section> 
       
-      {/* Metodología: los 4 pilares (texto del Brochure) */}
-      <Metodologia />
+      {/* Metodología: los 4 pilares con vuelo scrollytelling (estática en móvil) */}
+      <MetodologiaVuelo />
 
       {/* Otra sección de contenido */}
       <section id="experiencias" className="py-16 bg-white">

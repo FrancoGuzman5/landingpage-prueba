@@ -2,7 +2,8 @@
 // Sección "Metodología Kumelen" — los 4 pilares del Brochure (pág. 7).
 
 // Los pilares como datos: agregar/editar uno acá y la UI se actualiza sola.
-const pilares = [
+// Exportado para que MetodologiaVuelo use los mismos datos.
+export const pilares = [
   {
     titulo: "AUTENTICIDAD",
     bajada: "Experiencias diseñadas con propósito",
