@@ -15,20 +15,25 @@ datasource db {
 
 model Tour {
   id             Int      @id @default(autoincrement())
+  slug           String   @unique          // URL amigable: /tours/san-pedro
   title          String
   description    String
   location       String
+  image          String?                   // foto principal (tarjeta)
   durationDays   Int
   price          Float
+  priceOriginal  Float?                     // precio tachado (oferta)
   startDate      DateTime
   endDate        DateTime
   difficulty     String?
   language       String?
-  capacityMin    Int
-  capacityMax    Int
-  includes       String?
-  notIncluded    String?
+  capacityMin    Int?                       // opcional: el dossier no siempre lo trae
+  capacityMax    Int?
+  includes       String[]  @default([])     // lista de items incluidos
+  notIncluded    String[]  @default([])     // lista de items no incluidos
   focus          String?   // espiritual, cultural, etc.
+  attractions    Json?                      // [{ titulo, descripcion, foto?, pieDeFoto? }]
+  accommodation  Json?                      // { nombre, descripcion, amenities[] }
   createdAt      DateTime  @default(now())
 
   bookings Booking[]

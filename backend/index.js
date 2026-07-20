@@ -15,7 +15,7 @@ const userRoutes = require('./routes/users');
 app.use("/users", authenticate, userRoutes);      // Ahora todo lo que venga a /users va a ahí
 
 const tourRoutes = require('./routes/tours');
-app.use("/tours", authenticate, tourRoutes);      // Todo lo que venga a /tours se maneja ahí
+app.use("/tours", tourRoutes);      // GET público; crear/editar/borrar protegido por-ruta (ADMIN)
 
 const bookingRoutes = require('./routes/bookings');
 app.use("/bookings", authenticate, bookingRoutes);

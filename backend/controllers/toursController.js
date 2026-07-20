@@ -24,6 +24,18 @@ const getTourById = async (req, res) => {
   }
 };
 
+// Buscar un tour por su slug (usado por la página de detalle del frontend)
+const getTourBySlug = async (req, res) => {
+  const { slug } = req.params;
+  try {
+    const tour = await prisma.tour.findUnique({ where: { slug } });
+    if (!tour) return res.status(404).json({ error: "Tour no encontrado" });
+    res.json(tour);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener el tour" });
+  }
+};
+
 // Crear un tour
 const createTour = async (req, res) => {
   const {
@@ -112,6 +124,7 @@ module.exports = {
   getAllTours,
   createTour,
   getTourById,
+  getTourBySlug,
   deleteTour,
   updateTour,
   searchToursByTitle
