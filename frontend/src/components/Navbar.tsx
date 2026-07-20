@@ -39,7 +39,7 @@ export default function Navbar() {
         animate={visible ? "hidden" : "show"}
         className="shrink-0"
       >
-        <Link href="#hero" scroll>
+        <Link href="/#hero" scroll>
           <Image
             src="/Isologo.png"
             alt="Kumelen"
@@ -50,11 +50,13 @@ export default function Navbar() {
         </Link>
       </motion.div>
 
-      {/* Enlaces */}
+      {/* Enlaces. "/#seccion" = ir a la home y bajar a esa sección; funciona
+          desde cualquier página (login, registro, detalle de tour, 404). */}
       <ul className="ml-auto flex gap-6 text-kumelenSand font-poppins">
-        <li><a href="#experiencias">Experiencias</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><Link href="/#experiencias">Experiencias</Link></li>
+        <li><Link href="/#nosotros">Nosotros</Link></li>
+        <li><Link href="/#contacto">Contacto</Link></li>
+        <li><Link href="/login">Iniciar sesión/Registrarse</Link></li>
       </ul>
     </motion.nav>
   );

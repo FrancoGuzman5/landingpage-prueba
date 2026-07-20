@@ -2,19 +2,13 @@
 "use client"
 import Hero from "@/components/Hero";
 import VideoSection from "@/components/VideoSection";
-import TourCard from "@/components/TourCard";
+import ToursVitrina from "@/components/ToursVitrina";
 import Filosofia from "@/components/Filosofia";
 import MetodologiaVuelo from "@/components/MetodologiaVuelo";
 import Equipo from "@/components/Equipo";
 import Image from "next/image";
 import {motion, AnimatePresence} from "framer-motion"
 import { useState, useEffect } from "react";
-
-const tours = [
-  { title: "San Pedro Atacama", image: "/images/fondo_sanpedro.jpg", price: "$790.000", slug: "san-pedro" },
-  { title: "Torres del Paine", image: "/images/torres1.jpg", price: "$890.000", slug: "torres-paine" },
-  { title: "Yerba Loca", image: "/images/yerbaloca.jpg", price: "$590.000", slug: "yerba-loca" },
-];
 
 const videos2 = [
   "/videos/IMG_1188.mp4",
@@ -87,12 +81,10 @@ export default function Home() {
       {/* Metodología: los 4 pilares con vuelo scrollytelling (estática en móvil) */}
       <MetodologiaVuelo />
 
-      {/* Otra sección de contenido */}
+      {/* Vitrina de experiencias: los tours vienen de la base de datos */}
       <section id="experiencias" className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {tours.map((t) => (
-            <TourCard key={t.slug} {...t} />
-          ))}
+        <div className="max-w-6xl mx-auto px-6">
+          <ToursVitrina />
         </div>
       </section>
       
