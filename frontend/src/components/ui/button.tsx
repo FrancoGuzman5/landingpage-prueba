@@ -12,8 +12,8 @@ const base =
   "inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2";
 
 const variants: Record<Variant, string> = {
-  solid:   "bg-kum_gold text-kum_dark hover:opacity-90 focus:ring-kum_gold",
-  outline: "border border-kum_gold text-kum_gold hover:bg-kum_gold/10 focus:ring-kum_gold",
+  solid:   "bg-kumelenGold text-kumelenDark hover:opacity-90 focus:ring-kumelenGold",
+  outline: "border border-kumelenGold text-kumelenGold hover:bg-kumelenGold/10 focus:ring-kumelenGold",
 };
 
 const sizes: Record<Size, string> = {
