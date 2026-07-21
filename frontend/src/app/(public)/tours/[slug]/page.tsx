@@ -5,7 +5,10 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Check, X, MapPin, Clock, Gauge, CalendarDays } from "lucide-react";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 import { fetchTourBySlug, formatCLP } from "@/lib/tours";
+import ReservaForm from "@/components/ReservaForm";
 
 // Fecha ISO → "19 nov 2026"
 function fmtFecha(iso: string) {
@@ -24,6 +27,8 @@ export default async function TourDetail({
   const { slug } = await params;
   const tour = await fetchTourBySlug(slug);
   if (!tour) notFound();
+
+  const session = await getServerSession(authOptions);
 
   const datos = [
     { icon: Clock, label: "Duración", valor: `${tour.durationDays} días` },
@@ -86,9 +91,12 @@ export default async function TourDetail({
               {formatCLP(tour.price)}
             </p>
             <p className="mt-1 text-xs text-kumelenSand/70">por persona</p>
-            <button className="mt-4 w-full rounded-lg bg-kumelenGold px-6 py-3 font-semibold text-kumelenDark hover:opacity-90">
+            <a
+              href="#reservar"
+              className="mt-4 block w-full rounded-lg bg-kumelenGold px-6 py-3 text-center font-semibold text-kumelenDark hover:opacity-90"
+            >
               Reservar
-            </button>
+            </a>
           </div>
         </section>
 
@@ -161,6 +169,27 @@ export default async function TourDetail({
               </ul>
             </div>
           )}
+        </section>
+
+        {/* ─── Formulario de reserva ──────────────────────────── */}
+        <section id="reservar" className="scroll-mt-24">
+          <h2 className="mb-6 font-poppins font-bold text-2xl">
+            Reserva tu <span className="text-kumelenGold">experiencia</span>
+          </h2>
+          <ReservaForm
+            tourId={tour.id}
+            session={
+              session
+                ? {
+                    user: {
+                      name: session.user?.name,
+                      email: session.user?.email,
+                    },
+                    accessToken: session.accessToken,
+                  }
+                : null
+            }
+          />
         </section>
 
         {/* ─── Alojamiento ────────────────────────────────────── */}
