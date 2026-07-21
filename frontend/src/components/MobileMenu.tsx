@@ -8,16 +8,27 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
 
-const links = [
+// Enlaces públicos (siempre visibles)
+const publicos = [
   { href: "/#experiencias", label: "Experiencias" },
   { href: "/#nosotros", label: "Nosotros" },
   { href: "/#contacto", label: "Contacto" },
-  { href: "/login", label: "Iniciar sesión / Registrarse" },
 ];
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === "ADMIN";
+
+  // Links según sesión: Perfil / Panel admin / Iniciar sesión (los de sesión
+  // no son ancla, así que navegan normal).
+  const privados = [
+    ...(session ? [{ href: "/profile", label: "Perfil" }] : []),
+    ...(isAdmin ? [{ href: "/admin", label: "Panel administrador" }] : []),
+    ...(session ? [] : [{ href: "/login", label: "Iniciar sesión / Registrarse" }]),
+  ];
 
   // Cierra el menú y, si el enlace apunta a una sección de la home y ya
   // estamos en la home, hace el scroll suave a mano (el App Router de Next
@@ -57,17 +68,32 @@ export default function MobileMenu() {
       {open && (
         <div className="fixed inset-0 top-16 z-[9998] bg-kumelenDark/95 backdrop-blur">
           <ul className="flex flex-col gap-2 p-6 text-kumelenSand font-poppins text-lg">
-            {links.map((l) => (
+            {[...publicos, ...privados].map((l) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
                   onClick={(e) => handleClick(e, l.href)}
-                  className="block rounded-lg px-4 py-3 hover:bg-kumelenGold/10"
+                  className={`block rounded-lg px-4 py-3 hover:bg-kumelenGold/10 ${
+                    l.href === "/admin" ? "font-semibold text-kumelenGold" : ""
+                  }`}
                 >
                   {l.label}
                 </Link>
               </li>
             ))}
+            {session && (
+              <li>
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    signOut({ callbackUrl: "/" });
+                  }}
+                  className="block w-full rounded-lg px-4 py-3 text-left hover:bg-kumelenGold/10"
+                >
+                  Cerrar sesión
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       )}

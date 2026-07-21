@@ -3,6 +3,7 @@
 "use client";
 
 import { useHeroLogo } from "@/hooks/useHeroLogo";
+import { useSession, signOut } from "next-auth/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,6 +24,8 @@ const logoVariants : Variants={
 
 export default function Navbar() {
   const { visible } = useHeroLogo();   // true = logo grande está en pantalla
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === "ADMIN";
 
   return (
     <motion.nav
@@ -52,11 +55,29 @@ export default function Navbar() {
 
       {/* Enlaces. "/#seccion" = ir a la home y bajar a esa sección; funciona
           desde cualquier página (login, registro, detalle de tour, 404). */}
-      <ul className="ml-auto flex gap-6 text-kumelenSand font-poppins">
+      <ul className="ml-auto flex items-center gap-6 text-kumelenSand font-poppins">
         <li><Link href="/#experiencias">Experiencias</Link></li>
         <li><Link href="/#nosotros">Nosotros</Link></li>
         <li><Link href="/#contacto">Contacto</Link></li>
-        <li><Link href="/login">Iniciar sesión/Registrarse</Link></li>
+        {session && (
+          <li><Link href="/profile">Perfil</Link></li>
+        )}
+        {isAdmin && (
+          <li>
+            <Link href="/admin" className="font-semibold text-kumelenGold">
+              Panel administrador
+            </Link>
+          </li>
+        )}
+        {session ? (
+          <li>
+            <button onClick={() => signOut({ callbackUrl: "/" })}>
+              Cerrar sesión
+            </button>
+          </li>
+        ) : (
+          <li><Link href="/login">Iniciar sesión/Registrarse</Link></li>
+        )}
       </ul>
     </motion.nav>
   );

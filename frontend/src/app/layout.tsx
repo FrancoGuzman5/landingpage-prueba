@@ -7,6 +7,7 @@ import "./globals.css";
 import { LogoProvider } from "@/hooks/useHeroLogo";
 import ConditionalNav from "@/components/ConditionalNav";
 import Footer from "@/components/Footer";
+import Providers from "@/components/Providers";
 
 const poppins = localFont({
   variable: "--font-poppins",
@@ -54,11 +55,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <body className={`${poppins.variable} ${artifact.variable} font-poppins bg-kumelenDark text-white antialiased`}>
-        <LogoProvider>
-          <ConditionalNav />
-          {children}
-          <Footer/>
-        </LogoProvider>
+        <Providers>
+          <LogoProvider>
+            <ConditionalNav />
+            {children}
+            <Footer/>
+          </LogoProvider>
+        </Providers>
       </body>
     </html>
   );
