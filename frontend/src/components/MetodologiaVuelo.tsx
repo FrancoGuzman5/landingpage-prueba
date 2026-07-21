@@ -88,15 +88,25 @@ function Pilar({
   );
 
   return (
+    // Glassmorphism (backdrop-blur) + resplandor dorado sutil
     <motion.div
       style={{ opacity, y, left: `${parada.x}%`, x: "-50%" }}
-      className="absolute top-[66%] w-56 rounded-xl border
-                 border-kumelenGold/30 bg-kumelenDark p-6 text-left"
+      className="absolute top-[66%] w-64 rounded-2xl border
+                border-kumelenGold/40 bg-kumelenDark/80 backdrop-blur-md
+                p-6 text-left shadow-[0_0_20px_rgba(218,165,32,0.1)]
+                transition-all duration-500"
     >
-      <h3 className="font-poppins font-bold text-kumelenGold tracking-wider mb-2 text-sm">
+      {/* Punto de anclaje (hito) sobre la tarjeta */}
+      <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full
+                      bg-kumelenDark border-2 border-kumelenGold
+                      shadow-[0_0_10px_rgba(218,165,32,0.6)]" />
+
+      <h3 className="font-poppins font-bold text-kumelenGold tracking-widest mb-3 text-sm uppercase">
         {titulo}
       </h3>
-      <p className="font-poppins text-kumelenSand/90 text-xs leading-relaxed">{bajada}</p>
+      <p className="font-poppins text-kumelenSand/90 text-[13px] leading-relaxed">
+        {bajada}
+      </p>
     </motion.div>
   );
 }
