@@ -109,8 +109,8 @@ export default function Home() {
           Reserva ahora
         </button>
       </VideoSection>
-      <section id="poster" className="min-h-screen bg-kumelenSand text-kumelenDark">
-        <img src="images/street_poster_kumelen.png"/>
+      <section id="poster" className="bg-kumelenSand text-kumelenDark">
+        <img src="images/street_poster_kumelen.png" className="w-full"/>
       </section>
       <section id="contacto" className="min-h-[30vh] bg-white text-kumelenDark flex flex-wrap items-center justify-center gap-4 p-8">
        <img src="images/rrss_kumelen.png" alt="Foto 1 descripción" className="w-full sm:w-1/2 object-cover rounded-lg shadow-lg"/>

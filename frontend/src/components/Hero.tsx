@@ -48,8 +48,11 @@ export default function Hero() {
       {/* ─── Texto + Logo grande ─────────────────────── */}
       {/* flex-col centrado verticalmente: sin márgenes negativos,
           el texto queda siempre visible en cualquier alto de pantalla */}
-      <div id="hero-logo" className="relative z-20 flex h-full flex-col justify-center gap-16 pb-32 pl-24">
-        <span className="font-artifact text-[30px] leading-relaxed text-kumelenSand tracking-wide pl-16">
+      {/* Móvil: centrado. Desktop (md+): alineado a la izquierda como antes. */}
+      <div id="hero-logo" className="relative z-20 flex h-full flex-col justify-center gap-16 pb-32
+                                     items-center text-center px-6
+                                     md:items-start md:text-left md:px-0 md:pl-24">
+        <span className="font-artifact text-[30px] leading-relaxed text-kumelenSand tracking-wide md:pl-16">
           Conecta<br /> Descubre<br /> Transforma
         </span>
 

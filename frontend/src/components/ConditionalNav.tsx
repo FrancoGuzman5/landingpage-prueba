@@ -5,17 +5,23 @@ import { usePathname } from "next/navigation";
 import { useHeroLogo } from "@/hooks/useHeroLogo";
 import HeroNav from "@/components/HeroNav";
 import Navbar from "@/components/Navbar";
+import MobileMenu from "@/components/MobileMenu";
 
 export default function ConditionalNav() {
   const pathname = usePathname();
   const { visible } = useHeroLogo();
 
-  // El HeroNav solo tiene sentido en la home, superpuesto sobre el hero.
-  // En cualquier otra página (login, registro, detalle de tour, 404) va
-  // siempre el Navbar fijo — así sus enlaces "/#seccion" funcionan.
-  if (pathname !== "/") return <Navbar />;
+  // En celular siempre el menú hamburguesa (MobileMenu es md:hidden).
+  // En desktop, Navbar/HeroNav (ambos hidden md:flex) según la lógica:
+  //  - fuera de la home → Navbar fijo (para que "/#seccion" funcione)
+  //  - en la home → HeroNav mientras el logo grande está a la vista, luego Navbar
+  const desktopNav =
+    pathname !== "/" ? <Navbar /> : visible ? <HeroNav /> : <Navbar />;
 
-  // En la home: HeroNav mientras el logo grande está a la vista; al bajar,
-  // el Navbar fijo.
-  return visible ? <HeroNav /> : <Navbar />;
+  return (
+    <>
+      <MobileMenu />
+      {desktopNav}
+    </>
+  );
 }

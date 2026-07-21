@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function HeroNav() {
   return (
-    <nav className="absolute inset-x-0 top-0 z-[1000] flex justify-end p-20">
+    <nav className="absolute inset-x-0 top-0 z-[1000] hidden md:flex justify-end p-20">
       <ul className="flex gap-10">
         <li>
           <Link href="/#experiencias">

@@ -29,7 +29,7 @@ export default function Navbar() {
       variants={navVariants}
       initial="hidden"
       animate="show"
-      className="fixed inset-x-0 top-0 z-[9999] flex h-20 items-center
+      className="fixed inset-x-0 top-0 z-[9999] hidden md:flex h-20 items-center
                  px-8 bg-kumelenDark/70 backdrop-blur"
     >
       {/* Logo “mini” */}
