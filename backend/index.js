@@ -18,7 +18,7 @@ const tourRoutes = require('./routes/tours');
 app.use("/tours", tourRoutes);      // GET público; crear/editar/borrar protegido por-ruta (ADMIN)
 
 const bookingRoutes = require('./routes/bookings');
-app.use("/bookings", authenticate, bookingRoutes);
+app.use("/bookings", bookingRoutes);   // POST público (invitado); resto protegido por-ruta
 
 // Rutas públicas de autenticación
 const authRoutes = require("./routes/auth");

@@ -59,13 +59,18 @@ enum Role {
 
 model Booking {
   id          Int      @id @default(autoincrement())
-  userId      Int
+  userId      Int?                       // opcional: la reserva puede ser de un invitado
   tourId      Int
   reservedAt  DateTime @default(now())
-  quantity    Int
+  quantity    Int                        // cantidad de personas
   status      BookingStatus @default(PENDING)
 
-  user        User     @relation(fields: [userId], references: [id])
+  // Datos de contacto cuando reserva alguien sin cuenta
+  guestName   String?
+  guestEmail  String?
+  guestPhone  String?
+
+  user        User?    @relation(fields: [userId], references: [id])
   tour        Tour     @relation(fields: [tourId], references: [id])
 }
 

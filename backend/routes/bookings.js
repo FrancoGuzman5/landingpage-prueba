@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const authenticate = require("../middlewares/authMiddleware");
+const optionalAuth = require("../middlewares/optionalAuth");
 const authorize = require("../middlewares/authorize");
 const {
   createBooking,
@@ -10,20 +12,21 @@ const {
   deleteBooking
 } = require("../controllers/bookingsController");
 
-// Listado de todas (sólo ADMIN)
-router.get("/", authorize("ADMIN"), getAllBookings);
+// Crear reserva: público con sesión opcional (invitado o usuario logueado)
+router.post("/", optionalAuth, createBooking);
+
+// Listado de todas (solo ADMIN)
+router.get("/", authenticate, authorize("ADMIN"), getAllBookings);
+
+// Búsqueda (USER + ADMIN) — antes de /user/:userId no hace falta, pero
+// mantenemos orden claro
+router.get("/search", authenticate, authorize("USER", "ADMIN"), searchBookings);
 
 // Mis reservas (USER + ADMIN)
-router.get("/user/:userId", authorize("USER", "ADMIN"), getBookingsByUser);
+router.get("/user/:userId", authenticate, authorize("USER", "ADMIN"), getBookingsByUser);
 
-// Búsqueda (USER + ADMIN)
-router.get("/search", authorize("USER", "ADMIN"), searchBookings);
-
-// Crear reserva (USER + ADMIN)
-router.post("/", authorize("USER", "ADMIN"), createBooking);
-
-// Editar/Eliminar (USER + ADMIN – aquí podrías además comprobar que req.user.userId === ownerId)
-router.put("/:id",    authorize("USER", "ADMIN"), updateBooking);
-router.delete("/:id", authorize("USER", "ADMIN"), deleteBooking);
+// Editar / Eliminar (USER dueño + ADMIN, validado dentro del controlador)
+router.put("/:id",    authenticate, authorize("USER", "ADMIN"), updateBooking);
+router.delete("/:id", authenticate, authorize("USER", "ADMIN"), deleteBooking);
 
 module.exports = router;
