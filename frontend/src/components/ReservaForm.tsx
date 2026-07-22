@@ -35,9 +35,10 @@ export default function ReservaForm({ tourId, session }: Props) {
     const headers: Record<string, string> = { "Content-Type": "application/json" };
     if (logueado) headers["Authorization"] = `Bearer ${session!.accessToken}`;
 
+    // Logueado: el backend toma el contacto de la cuenta. Invitado: lo mandamos.
     const body = logueado
       ? { tourId, quantity }
-      : { tourId, quantity, guestName, guestEmail, guestPhone };
+      : { tourId, quantity, contactName: guestName, contactEmail: guestEmail, contactPhone: guestPhone };
 
     try {
       const res = await fetch(`${API_URL}/bookings`, {

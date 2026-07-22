@@ -15,10 +15,10 @@ type Booking = {
   quantity: number;
   status: "PENDING" | "CONFIRMED" | "CANCELLED";
   reservedAt: string;
-  guestName: string | null;
-  guestEmail: string | null;
-  guestPhone: string | null;
-  user: { name: string | null; email: string | null } | null;
+  userId: number | null;
+  contactName: string | null;
+  contactEmail: string | null;
+  contactPhone: string | null;
   tour: { title: string; price: number } | null;
 };
 
@@ -90,20 +90,24 @@ export default async function AdminPage() {
               </thead>
               <tbody className="divide-y divide-kumelenGold/10">
                 {bookings.map((b) => {
-                  const nombre = b.user?.name ?? b.guestName ?? "—";
-                  const email = b.user?.email ?? b.guestEmail ?? "—";
+                  const nombre = b.contactName ?? "—";
+                  const email = b.contactEmail ?? "—";
+                  const telefono = b.contactPhone ?? "—";
                   const monto = b.tour ? b.tour.price * b.quantity : 0;
                   return (
                     <tr key={b.id} className="bg-kumelenDark/60">
                       <td className="px-4 py-3">
                         {nombre}
-                        {!b.user && (
+                        {!b.userId && (
                           <span className="ml-2 rounded bg-kumelenSand/10 px-1.5 py-0.5 text-[10px] text-kumelenSand/60">
                             invitado
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-kumelenSand/80">{email}</td>
+                      <td className="px-4 py-3 text-kumelenSand/80">
+                        <div>{email}</div>
+                        <div className="text-xs text-kumelenSand/60">{telefono}</div>
+                      </td>
                       <td className="px-4 py-3">{b.tour?.title ?? "—"}</td>
                       <td className="px-4 py-3 text-center">{b.quantity}</td>
                       <td className="px-4 py-3 text-right">{formatCLP(monto)}</td>
