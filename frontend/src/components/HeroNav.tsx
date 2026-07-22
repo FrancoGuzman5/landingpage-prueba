@@ -15,7 +15,7 @@ export default function HeroNav() {
   return (
     <nav className="absolute inset-x-0 top-0 z-[1000] hidden md:flex justify-end p-20">
       <ul className="flex gap-10">
-        <li><Link href="/#experiencias"><div className={btn}>Experiencias</div></Link></li>
+        <li><Link href="/tours"><div className={btn}>Tours</div></Link></li>
         <li><Link href="/#nosotros"><div className={btn}>Nosotros</div></Link></li>
         <li><Link href="/#contacto"><div className={btn}>Contacto</div></Link></li>
 

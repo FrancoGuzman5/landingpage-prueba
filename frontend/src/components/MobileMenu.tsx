@@ -12,7 +12,7 @@ import { useSession, signOut } from "next-auth/react";
 
 // Enlaces públicos (siempre visibles)
 const publicos = [
-  { href: "/#experiencias", label: "Experiencias" },
+  { href: "/tours", label: "Tours" },
   { href: "/#nosotros", label: "Nosotros" },
   { href: "/#contacto", label: "Contacto" },
 ];

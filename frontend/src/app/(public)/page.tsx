@@ -2,12 +2,12 @@
 "use client"
 import Hero from "@/components/Hero";
 import VideoSection from "@/components/VideoSection";
-import ToursVitrina from "@/components/ToursVitrina";
 import Carousel from "@/components/Carousel";
 import Filosofia from "@/components/Filosofia";
 import MetodologiaVuelo from "@/components/MetodologiaVuelo";
 import Equipo from "@/components/Equipo";
 import Image from "next/image";
+import Link from "next/link";
 import {motion, AnimatePresence} from "framer-motion"
 import { useState, useEffect } from "react";
 
@@ -75,13 +75,16 @@ export default function Home() {
       {/* Metodología: los 4 pilares con vuelo scrollytelling (estática en móvil) */}
       <MetodologiaVuelo />
 
-      {/* Vitrina de experiencias: los tours vienen de la base de datos */}
-      <section id="experiencias" className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <ToursVitrina />
-        </div>
-      </section>
-      
+      {/* Video con CTA que lleva a la página de Tours (movido arriba del equipo) */}
+      <VideoSection src="/videos/IMG_1188.mp4" id="video-3">
+        <Link
+          href="/tours"
+          className="px-6 py-3 bg-kumelenGold text-kumelenDark font-semibold rounded hover:opacity-90"
+        >
+          Reserva ahora
+        </Link>
+      </VideoSection>
+
       <section id="nosotros" className="bg-kumelenSand/40 py-16">
         <div className="max-w-[1400px] mx-auto px-4"> {/* alto = ancho*(9/16) */}
         <Image
@@ -94,15 +97,9 @@ export default function Home() {
         />
       </div>
       </section>
+
       {/* Equipo (datos del Brochure; fotos pendientes) */}
       <Equipo />
-
-      {/* Tercera sección de vídeo */}
-      <VideoSection src="/videos/IMG_1188.mp4" id="video-3">
-        <button className="px-6 py-3 bg-kumelenGold text-kumelenDark font-semibold rounded">
-          Reserva ahora
-        </button>
-      </VideoSection>
       <section id="poster" className="bg-kumelenSand text-kumelenDark">
         <img src="images/street_poster_kumelen.png" className="w-full"/>
       </section>
