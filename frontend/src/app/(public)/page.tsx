@@ -3,6 +3,7 @@
 import Hero from "@/components/Hero";
 import VideoSection from "@/components/VideoSection";
 import ToursVitrina from "@/components/ToursVitrina";
+import Carousel from "@/components/Carousel";
 import Filosofia from "@/components/Filosofia";
 import MetodologiaVuelo from "@/components/MetodologiaVuelo";
 import Equipo from "@/components/Equipo";
@@ -37,14 +38,7 @@ export default function Home() {
              ¿A QUIENES <span className="font-bold">NOS DIRIGIMOS?</span>
           </p>
           <p className="max-w-3xl mx-auto text-white font-artifact text-[60px] mb-[20px]">si buscas</p>
-          <Image
-            src="/images/si_buscas.jpg"   /* tu archivo combinado */
-            alt="Beneficios Kumelen"
-            width={1800}                   /* ancho natural de la imagen */
-            height={300}                   /* alto natural */
-            className="w-full max-w-[1800px] h-auto"  /* escala responsiva */
-            priority
-          />
+          <Carousel />
           <p className="max-w-3xl mx-auto leading-relaxed text-kumelenSand/90 font-poppins font-extrabold text-[40px]">ENTONCES, KUMELEN ES PARA TI.</p>
         </div>
       </section>
