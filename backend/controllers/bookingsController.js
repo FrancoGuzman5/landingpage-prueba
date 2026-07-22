@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 // Crear una reserva (híbrida: con sesión o como invitado).
 // Pasa por optionalAuth: si hay token, req.user existe.
 const createBooking = async (req, res) => {
-  const { tourId, quantity, guestName, guestEmail, guestPhone } = req.body;
+  const { tourId, quantity, contactName, contactEmail, contactPhone } = req.body;
 
   // El userId SIEMPRE sale del token (no del body) — así nadie reserva
   // a nombre de otro. Si no hay sesión, es una reserva de invitado.
@@ -14,7 +14,17 @@ const createBooking = async (req, res) => {
   if (!tourId || !quantity || quantity < 1) {
     return res.status(400).json({ error: "Faltan datos: tour y cantidad de personas" });
   }
-  if (!userId && !guestEmail) {
+
+  // Snapshot del contacto: de la cuenta si está logueado, del formulario si es invitado.
+  let cName = contactName ?? null;
+  let cEmail = contactEmail ?? null;
+  let cPhone = contactPhone ?? null;
+  if (userId) {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    cName = user?.name ?? null;
+    cEmail = user?.email ?? null;
+    cPhone = user?.phone ?? null;
+  } else if (!cEmail) {
     return res.status(400).json({ error: "Se requiere email de contacto para reservar sin cuenta" });
   }
 
@@ -29,10 +39,9 @@ const createBooking = async (req, res) => {
         quantity: Number(quantity),
         status: "PENDING",             // siempre PENDING; Kumelen confirma después
         userId,                         // null si es invitado
-        // Datos de invitado solo si no hay sesión
-        guestName:  userId ? null : guestName ?? null,
-        guestEmail: userId ? null : guestEmail ?? null,
-        guestPhone: userId ? null : guestPhone ?? null,
+        contactName: cName,
+        contactEmail: cEmail,
+        contactPhone: cPhone,
       },
       include: { tour: true },
     });

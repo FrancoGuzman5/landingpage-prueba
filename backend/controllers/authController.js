@@ -88,4 +88,34 @@ const getMe = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getMe };
+// Actualiza los datos del usuario autenticado (su propio perfil).
+// El id sale del token, así solo puede editar lo suyo.
+const updateMe = async (req, res) => {
+  const userId = req.user.userId;
+  const { name, phone } = req.body;
+  try {
+    const data = {};
+    if (name !== undefined) data.name = name;
+    if (phone !== undefined) data.phone = phone;
+
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    res.json(user);
+  } catch (err) {
+    console.error("Error en updateMe:", err);
+    res.status(500).json({ error: "Error al actualizar el perfil" });
+  }
+};
+
+module.exports = { register, login, getMe, updateMe };

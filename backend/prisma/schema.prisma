@@ -65,10 +65,11 @@ model Booking {
   quantity    Int                        // cantidad de personas
   status      BookingStatus @default(PENDING)
 
-  // Datos de contacto cuando reserva alguien sin cuenta
-  guestName   String?
-  guestEmail  String?
-  guestPhone  String?
+  // Datos de contacto de la reserva (snapshot al momento de reservar).
+  // Se llenan siempre: de la cuenta si está logueado, o del formulario si es invitado.
+  contactName   String?
+  contactEmail  String?
+  contactPhone  String?
 
   user        User?    @relation(fields: [userId], references: [id])
   tour        Tour     @relation(fields: [tourId], references: [id])
