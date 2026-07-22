@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import { formatCLP } from "@/lib/tours";
+import BookingActions from "@/components/BookingActions";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
@@ -86,6 +87,7 @@ export default async function AdminPage() {
                   <th className="px-4 py-3 font-semibold text-right">Monto</th>
                   <th className="px-4 py-3 font-semibold text-center">Estado</th>
                   <th className="px-4 py-3 font-semibold">Fecha</th>
+                  <th className="px-4 py-3 font-semibold text-center">Acciones</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-kumelenGold/10">
@@ -120,6 +122,13 @@ export default async function AdminPage() {
                       </td>
                       <td className="px-4 py-3 text-kumelenSand/80">
                         {fmtFecha(b.reservedAt)}
+                      </td>
+                      <td className="px-4 py-3">
+                        <BookingActions
+                          bookingId={b.id}
+                          status={b.status}
+                          token={session.accessToken ?? ""}
+                        />
                       </td>
                     </tr>
                   );
