@@ -57,10 +57,8 @@ const createBooking = async (req, res) => {
 const getAllBookings = async (req, res) => {
   try {
     const bookings = await prisma.booking.findMany({
-      include: {
-        user: true,
-        tour: true,
-      },
+      include: { tour: true },
+      orderBy: { reservedAt: "desc" }, // más recientes primero, orden estable
     });
 
     res.json(bookings);
