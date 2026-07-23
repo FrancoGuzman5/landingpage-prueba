@@ -85,18 +85,6 @@ export default function Home() {
         </Link>
       </VideoSection>
 
-      <section id="nosotros" className="bg-kumelenSand/40 py-16">
-        <div className="max-w-[1400px] mx-auto px-4"> {/* alto = ancho*(9/16) */}
-        <Image
-          src="/images/nosotros.jpg"
-          alt="Somos Kumelen Endémico"
-          width={1400}          /* ancho natural de tu PNG/JPG */
-          height={900}          /* alto natural */
-          className="w-full md:w-[1400px] h-auto mx-auto rounded-xl shadow-lg"
-          priority
-        />
-      </div>
-      </section>
 
       {/* Equipo (datos del Brochure; fotos pendientes) */}
       <Equipo />

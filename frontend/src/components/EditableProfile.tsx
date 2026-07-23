@@ -85,7 +85,7 @@ export default function EditableProfile({
           <p className="text-sm text-kumelenSand/90">
             Necesitamos tu <strong>teléfono</strong> para gestionar tus reservas,
             confirmarlas y poder contactarte ante cualquier{" "}
-            <strong>emergencia o inconveniente</strong> durante el viaje. Tocá el
+            <strong>emergencia o inconveniente</strong> durante el viaje. Toca el
             lápiz para agregarlo.
           </p>
         </div>

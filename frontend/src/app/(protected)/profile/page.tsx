@@ -104,9 +104,9 @@ export default async function ProfilePage() {
 
         {bookings.length === 0 ? (
           <p className="rounded-xl border border-kumelenGold/20 bg-kumelenBrown p-6 text-kumelenSand/70">
-            Todavía no tenés reservas.{" "}
+            Todavía no tienes reservas.{" "}
             <Link href="/tours" className="text-kumelenGold underline">
-              Descubrí nuestros tours
+              Descubre nuestros tours
             </Link>
             .
           </p>

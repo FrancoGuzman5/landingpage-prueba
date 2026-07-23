@@ -152,7 +152,7 @@ export default function MetodologiaVuelo() {
       >
         <div className="sticky top-0 h-screen overflow-hidden">
           {/* Título */}
-          <div className="pt-16 text-center">
+          <div className="pt-20 text-center">
             <h2 className="font-poppins font-bold text-4xl text-white tracking-wide">
               METODOLOGÍA
             </h2>
