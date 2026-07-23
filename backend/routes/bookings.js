@@ -6,6 +6,7 @@ const authorize = require("../middlewares/authorize");
 const {
   createBooking,
   getAllBookings,
+  getMyBookings,
   getBookingsByUser,
   searchBookings,
   updateBooking,
@@ -14,6 +15,9 @@ const {
 
 // Crear reserva: público con sesión opcional (invitado o usuario logueado)
 router.post("/", optionalAuth, createBooking);
+
+// Mis reservas: el usuario autenticado ve las suyas (userId del token)
+router.get("/mine", authenticate, getMyBookings);
 
 // Listado de todas (solo ADMIN)
 router.get("/", authenticate, authorize("ADMIN"), getAllBookings);

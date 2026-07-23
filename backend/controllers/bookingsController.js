@@ -67,6 +67,22 @@ const getAllBookings = async (req, res) => {
   }
 };
 
+// Mis reservas: las del usuario autenticado. El userId sale del token,
+// así nadie puede ver las reservas de otro.
+const getMyBookings = async (req, res) => {
+  try {
+    const bookings = await prisma.booking.findMany({
+      where: { userId: req.user.userId },
+      include: { tour: true },
+      orderBy: { reservedAt: "desc" },
+    });
+    res.json(bookings);
+  } catch (err) {
+    console.error("Error en getMyBookings:", err);
+    res.status(500).json({ error: "Error al obtener tus reservas" });
+  }
+};
+
 //Mostrar todas las reservas del usuario (vista usuario)
 const getBookingsByUser = async (req, res) => {
   const userId = Number(req.params.userId || req.query.userId);
@@ -177,6 +193,7 @@ const deleteBooking = async (req, res) => {
 module.exports = {
   createBooking,
   getAllBookings,
+  getMyBookings,
   getBookingsByUser,
   searchBookings,
   updateBooking,
