@@ -42,3 +42,9 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+# Material fuente pesado (masters sin optimizar). NO debe ir al repo ni al
+# deploy: todo lo que está en /public se publica y pesa en el build.
+# Para usar una foto/video, se optimiza y se copia a /public/images o /public/videos.
+/public/Banco de Fotos*/
+/public/videos kumelen/

@@ -57,7 +57,7 @@ export default function Navbar() {
           desde cualquier página (login, registro, detalle de tour, 404). */}
       <ul className="ml-auto flex items-center gap-6 text-kumelenSand font-poppins">
         <li><Link href="/tours">Tours</Link></li>
-        <li><Link href="/#nosotros">Nosotros</Link></li>
+        <li><Link href="/#equipo">Nosotros</Link></li>
         <li><Link href="/#contacto">Contacto</Link></li>
         {session && (
           <li><Link href="/profile">Perfil</Link></li>

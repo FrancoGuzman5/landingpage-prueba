@@ -4,7 +4,9 @@ import { Instagram, Facebook, Twitter, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-kumelenDark text-kumelenSand p-10">
+    // id="contacto": el enlace "Contacto" del navbar baja hasta acá, donde
+    // están el teléfono y el correo.
+    <footer id="contacto" className="scroll-mt-24 bg-kumelenDark text-kumelenSand p-10">
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
         {/* Contacto */}
         <div>
@@ -17,7 +19,7 @@ export default function Footer() {
           <h4 className="font-poppins font-bold mb-2">Enlaces</h4>
           <ul className="space-y-1">
             <li><Link href="/tours">Tours</Link></li>
-            <li><Link href="/#nosotros">Nosotros</Link></li>
+            <li><Link href="/#equipo">Nosotros</Link></li>
             <li><Link href="/#contacto">Contacto</Link></li>
           </ul>
         </div>
