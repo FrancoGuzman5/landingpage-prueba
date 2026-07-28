@@ -39,10 +39,15 @@ export type Tour = {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
-// Trae todos los tours. Devuelve [] si el backend falla (la home no rompe).
+// Los tours casi no cambian: los cacheamos y revalidamos cada 5 min. Así las
+// páginas se sirven al instante (aunque Render esté dormido) en vez de esperar
+// al backend en cada visita.
+const TOURS_CACHE = { next: { revalidate: 300 } };
+
+// Trae todos los tours. Devuelve [] si el backend falla (la página no rompe).
 export async function fetchTours(): Promise<Tour[]> {
   try {
-    const res = await fetch(`${API_URL}/tours`, { cache: "no-store" });
+    const res = await fetch(`${API_URL}/tours`, TOURS_CACHE);
     if (!res.ok) return [];
     return res.json();
   } catch {
@@ -53,7 +58,7 @@ export async function fetchTours(): Promise<Tour[]> {
 // Trae un tour por slug. Devuelve null si no existe (→ 404 en el detalle).
 export async function fetchTourBySlug(slug: string): Promise<Tour | null> {
   try {
-    const res = await fetch(`${API_URL}/tours/${slug}`, { cache: "no-store" });
+    const res = await fetch(`${API_URL}/tours/${slug}`, TOURS_CACHE);
     if (!res.ok) return null;
     return res.json();
   } catch {

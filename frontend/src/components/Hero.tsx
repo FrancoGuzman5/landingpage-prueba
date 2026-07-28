@@ -32,7 +32,7 @@ export default function Hero() {
           className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000"
           src={videos[current]}
           autoPlay
-          preload="auto"
+          preload="metadata"
           muted
           loop
           playsInline

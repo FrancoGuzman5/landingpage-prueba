@@ -26,6 +26,7 @@ export default function VideoSection({
         muted
         loop
         playsInline
+        preload="metadata"
       />
 
       {/* Overlay semitransparente */}
