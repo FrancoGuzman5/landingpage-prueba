@@ -111,13 +111,105 @@ const sanPedro = {
   ],
 };
 
+// ─── Torres del Paine ─────────────────────────────────────────────────────
+// Tour "de autor" inventado para tener un segundo destino en el catálogo,
+// calcado sobre la estructura de San Pedro. Datos ficticios (precio, fechas,
+// alojamiento) hasta confirmarlos con el equipo.
+const torres = {
+  slug: "torres-del-paine",
+  title: "Torres del Paine",
+  description:
+    "Cinco días en el corazón de la Patagonia chilena para recorrer uno de los " +
+    "parques más icónicos del mundo. Trekkings de autor en grupo reducido entre " +
+    "cuernos de granito, lagos turquesa y glaciares, con el ritmo justo para " +
+    "conectar con la inmensidad del fin del mundo.",
+  location: "Torres del Paine, Región de Magallanes, Chile",
+  image: "/images/fondo_torres.jpg",
+  durationDays: 5,
+  price: 1149990,
+  priceOriginal: 1249990,
+  // Fechas ficticias (temporada de verano austral); ajustar con el equipo.
+  startDate: new Date("2027-01-14"),
+  endDate: new Date("2027-01-18"),
+  difficulty: "Moderada - Exigente",
+  language: "Español",
+  capacityMin: null,
+  capacityMax: null,
+  focus: "Naturaleza",
+  includes: [
+    "Tickets aéreos Santiago–Punta Arenas (ida y vuelta)",
+    "Equipaje de hasta 23 kg + un artículo personal",
+    "Traslados Punta Arenas – Puerto Natales – Parque",
+    "Entrada al Parque Nacional Torres del Paine",
+    "Alojamiento en Puerto Natales con desayuno",
+    "Guías profesionales registrados en SERNATUR",
+    "Alimentación: 5 desayunos, 4 box lunch y 3 cenas",
+  ],
+  notIncluded: [
+    "Seguro de viajes",
+    "Bebestibles",
+    "Propinas a guías",
+    "Traslado del domicilio particular al aeropuerto",
+    "Almuerzos en días de traslado",
+  ],
+  accommodation: {
+    nombre: "Hotel Boutique en Puerto Natales",
+    descripcion:
+      "Base de operaciones a orillas del Seno Última Esperanza, a pasos del " +
+      "centro de Puerto Natales. Habitaciones cálidas con vista al fiordo, el " +
+      "lugar perfecto para descansar entre jornadas de trekking.",
+    amenities: [
+      "Habitaciones con baño privado",
+      "Calefacción central",
+      "Internet",
+      "Desayuno patagónico",
+      "Vista al fiordo",
+      "Áreas de descanso",
+    ],
+  },
+  attractions: [
+    {
+      titulo: "Base Torres",
+      descripcion:
+        "El trekking insignia del parque. Una jornada exigente hasta el mirador " +
+        "de las tres torres de granito que se alzan sobre una laguna glaciar, la " +
+        "postal más famosa de la Patagonia.",
+      foto: "/images/torres_2.jpg",
+    },
+    {
+      titulo: "Lago Grey y Glaciar",
+      descripcion:
+        "Navegación entre témpanos de hielo milenario frente al frente del " +
+        "Glaciar Grey, uno de los brazos del Campo de Hielo Sur, con sus " +
+        "inconfundibles tonos azules.",
+    },
+    {
+      titulo: "Valle del Francés",
+      descripcion:
+        "El corazón del circuito W. Un anfiteatro de montañas colgantes, " +
+        "avalanchas lejanas y bosques de lenga que enmarcan los Cuernos del " +
+        "Paine.",
+    },
+    {
+      titulo: "Salto Grande y Lago Nordenskjöld",
+      descripcion:
+        "Una caminata suave hasta la potente caída de agua entre el Lago Nordenskjöld " +
+        "y el Lago Pehoé, con los Cuernos del Paine de telón de fondo.",
+    },
+  ],
+};
+
+const tours = [sanPedro, torres];
+
 async function main() {
-  const tour = await prisma.tour.upsert({
-    where: { slug: sanPedro.slug },
-    update: sanPedro,
-    create: sanPedro,
-  });
-  console.log(`✓ Tour cargado: ${tour.title} (id ${tour.id}, slug ${tour.slug})`);
+  for (const data of tours) {
+    const tour = await prisma.tour.upsert({
+      where: { slug: data.slug },
+      update: data,
+      create: data,
+    });
+    console.log(`✓ Tour cargado: ${tour.title} (id ${tour.id}, slug ${tour.slug})`);
+  }
 }
 
 main()

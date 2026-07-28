@@ -1,7 +1,6 @@
 // src/components/Equipo.tsx
 // Sección "Quienes hacen de Kumelen" — equipo según el Brochure (pág. 13).
-// Sin fotos por ahora: avatar con iniciales. Cuando existan las fotos,
-// agregar campo `foto` al array y reemplazar el div del avatar por <Image>.
+// Fotos reales en /public/images/equipo (optimizadas desde el Banco de Fotos).
 
 import Image from "next/image";
 
@@ -11,27 +10,21 @@ const equipo = [
     nombre: "Nicolás Cifuentes Ibarra",
     rol: "Ing. en Expediciones y Ecoturismo",
     detalle: "Especialista en Fauna",
+    foto: "/images/equipo/nicolas.jpg",
   },
   {
     nombre: "Bruno Rubilar Nuñez",
     rol: "Ing. en Expediciones y Ecoturismo",
     detalle: "Guía de expediciones",
+    foto: "/images/equipo/bruno.jpg",
   },
   {
     nombre: "Daniela Bilbao Ramila",
     rol: "Ing. en Expediciones y Ecoturismo",
     detalle: "Fotógrafa amateur",
+    foto: "/images/equipo/daniela.jpg",
   },
 ];
-
-// "Daniela Bilbao Ramila" -> "DB" (primeras dos iniciales)
-function iniciales(nombre: string) {
-  return nombre
-    .split(" ")
-    .slice(0, 2)
-    .map((p) => p[0])
-    .join("");
-}
 
 export default function Equipo() {
   return (
@@ -78,11 +71,14 @@ export default function Equipo() {
                 // Aquí bajé un poco la opacidad del fondo de las tarjetas (bg-opacity-90) para un mejor efecto
                 className="rounded-xl bg-kumelenBrown/90 p-8 flex flex-col items-center shadow-md backdrop-blur-sm"
               >
-                <div
-                  className="mb-6 flex h-24 w-24 items-center justify-center rounded-full
-                             bg-kumelenGold font-poppins font-bold text-2xl text-kumelenDark"
-                >
-                  {iniciales(persona.nombre)}
+                <div className="mb-6 h-24 w-24 overflow-hidden rounded-full ring-2 ring-kumelenGold">
+                  <Image
+                    src={persona.foto}
+                    alt={persona.nombre}
+                    width={96}
+                    height={96}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
                 <h3 className="font-poppins font-semibold text-white text-lg">
                   {persona.nombre}
