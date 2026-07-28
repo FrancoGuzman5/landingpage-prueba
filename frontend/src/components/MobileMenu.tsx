@@ -51,7 +51,8 @@ export default function MobileMenu() {
     <div className="md:hidden">
       {/* Barra superior fija */}
       <div className="fixed inset-x-0 top-0 z-[9999] flex h-16 items-center justify-between
-                      px-4 bg-kumelenDark/80 backdrop-blur">
+                      px-4 bg-kumelenDark/30 backdrop-blur-lg
+                      border-b border-white/10 shadow-lg shadow-black/5">
         <Link href="/#hero" onClick={() => setOpen(false)}>
           <Image src="/Isologo.png" alt="Kumelen" width={80} height={28} priority />
         </Link>

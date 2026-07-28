@@ -33,7 +33,8 @@ export default function Navbar() {
       initial="hidden"
       animate="show"
       className="fixed inset-x-0 top-0 z-[9999] hidden md:flex h-20 items-center
-                 px-8 bg-kumelenDark/70 backdrop-blur"
+                 px-8 bg-kumelenDark/30 backdrop-blur-lg
+                 border-b border-white/10 shadow-lg shadow-black/5"
     >
       {/* Logo “mini” */}
       <motion.div
