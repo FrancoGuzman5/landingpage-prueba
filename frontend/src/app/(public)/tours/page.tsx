@@ -32,6 +32,12 @@ export default async function ToursPage() {
                 image={t.image}
                 price={t.price}
                 priceOriginal={t.priceOriginal}
+                motivoDescuento={t.motivoDescuento}
+                cuotas={t.cuotas}
+                durationDays={t.durationDays}
+                capacityMax={t.capacityMax}
+                includes={t.includes}
+                location={t.location}
                 slug={t.slug}
               />
             ))}

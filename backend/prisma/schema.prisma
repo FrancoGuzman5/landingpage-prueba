@@ -23,6 +23,10 @@ model Tour {
   durationDays   Int
   price          Float
   priceOriginal  Float?                     // precio tachado (oferta)
+  motivoDescuento String?                   // por qué hay descuento (ej. "Precio de lanzamiento").
+                                            // Sin motivo NO se muestra el precio tachado: un precio
+                                            // anterior sin razón es publicidad engañosa.
+  cuotas         Int?                       // nº de cuotas sin interés. null = no se ofrece todavía
   startDate      DateTime
   endDate        DateTime
   difficulty     String?
@@ -33,6 +37,8 @@ model Tour {
   notIncluded    String[]  @default([])     // lista de items no incluidos
   focus          String?   // espiritual, cultural, etc.
   attractions    Json?                      // [{ titulo, descripcion, foto?, pieDeFoto? }]
+  itinerario     Json?                      // [{ dia, titulo, descripcion }] día a día.
+                                            // null → la ficha no muestra la sección
   accommodation  Json?                      // { nombre, descripcion, amenities[] }
   createdAt      DateTime  @default(now())
 

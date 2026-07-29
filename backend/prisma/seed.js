@@ -19,6 +19,8 @@ const sanPedro = {
   durationDays: 5,
   price: 896990,
   priceOriginal: 971990,
+  motivoDescuento: "Precio de lanzamiento",
+  cuotas: null, // TODO(Kumelen): activar cuando exista medio de pago en cuotas
   // Fechas del dossier (19–23 de noviembre); se usa la próxima ocurrencia.
   startDate: new Date("2026-11-19"),
   endDate: new Date("2026-11-23"),
@@ -27,6 +29,9 @@ const sanPedro = {
   capacityMin: null, // pendiente de confirmar con el equipo
   capacityMax: null,
   focus: "Cultural",
+  // TODO(Kumelen): cargar el itinerario día a día desde el dossier oficial.
+  // Se deja en null a propósito: no se inventa el programa de un tour real.
+  itinerario: null,
   includes: [
     "Tickets aéreos Santiago–Calama (ida y vuelta)",
     "Equipaje de hasta 23 kg + un artículo personal",
@@ -128,6 +133,8 @@ const torres = {
   durationDays: 5,
   price: 1149990,
   priceOriginal: 1249990,
+  motivoDescuento: "Precio de lanzamiento",
+  cuotas: null, // TODO(Kumelen): activar cuando exista medio de pago en cuotas
   // Fechas ficticias (temporada de verano austral); ajustar con el equipo.
   startDate: new Date("2027-01-14"),
   endDate: new Date("2027-01-18"),
@@ -136,6 +143,50 @@ const torres = {
   capacityMin: null,
   capacityMax: null,
   focus: "Naturaleza",
+  // Itinerario ficticio, igual que el resto de los datos de este tour.
+  // TODO(Kumelen): reemplazar por el programa real cuando exista.
+  itinerario: [
+    {
+      dia: 1,
+      titulo: "Santiago – Punta Arenas – Puerto Natales",
+      descripcion:
+        "Vuelo a Punta Arenas y traslado por la ruta del Seno Última Esperanza " +
+        "hasta Puerto Natales. Tarde libre para recorrer la costanera y charla " +
+        "de bienvenida con el equipo.",
+    },
+    {
+      dia: 2,
+      titulo: "Trekking Base Torres",
+      descripcion:
+        "Jornada completa hasta el mirador de las tres torres de granito. " +
+        "Ascenso por el valle Ascencio y morrena final, con la laguna glaciar " +
+        "como recompensa. Regreso a Puerto Natales.",
+    },
+    {
+      dia: 3,
+      titulo: "Lago Grey y Glaciar",
+      descripcion:
+        "Navegación entre témpanos hasta el frente del Glaciar Grey, uno de " +
+        "los brazos del Campo de Hielo Sur. Caminata por la playa de cantos " +
+        "rodados y mirador del lago.",
+    },
+    {
+      dia: 4,
+      titulo: "Valle del Francés",
+      descripcion:
+        "El corazón del circuito W: anfiteatro de montañas colgantes, bosques " +
+        "de lenga y vista frontal a los Cuernos del Paine. Cena de cierre en " +
+        "Puerto Natales.",
+    },
+    {
+      dia: 5,
+      titulo: "Salto Grande – Punta Arenas – Santiago",
+      descripcion:
+        "Caminata suave hasta el Salto Grande entre los lagos Nordenskjöld y " +
+        "Pehoé, y traslado al aeropuerto de Punta Arenas para el vuelo de " +
+        "regreso.",
+    },
+  ],
   includes: [
     "Tickets aéreos Santiago–Punta Arenas (ida y vuelta)",
     "Equipaje de hasta 23 kg + un artículo personal",
