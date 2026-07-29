@@ -8,6 +8,7 @@ import { LogoProvider } from "@/hooks/useHeroLogo";
 import ConditionalNav from "@/components/ConditionalNav";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const poppins = localFont({
   variable: "--font-poppins",
@@ -47,8 +48,11 @@ const artifact = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Kumelen Endémico",
-  description: "Experiencias de viaje conscientes",
+  // Título orientado a búsqueda: primero lo que se ofrece, después la marca.
+  title: "Expediciones en grupos pequeños por Chile | Kumelen Endémico",
+  description:
+    "Expediciones en grupos pequeños por el desierto de Atacama y la Patagonia, " +
+    "con guías registrados en SERNATUR. Viajes de autor, sin prisa y con propósito.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -60,6 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ConditionalNav />
             {children}
             <Footer/>
+            <WhatsAppButton />
           </LogoProvider>
         </Providers>
       </body>

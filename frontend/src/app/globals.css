@@ -12,3 +12,15 @@ section {
 html {
   scroll-behavior: smooth;
 }
+
+/* Tokens de la paleta de conversión, también como variables CSS para usarlas
+   fuera de Tailwind (gradientes, scrims, estilos inline). Espejo de los
+   colores declarados en tailwind.config.js. */
+:root {
+  --bosque: #0F3D2E;
+  --atacama: #C86A3B;
+  --atacama-cta: #A8501F;
+  --arena: #E8E1D4;
+  --liquen: #7FA88C;
+  --basalto: #1A1D1A;
+}

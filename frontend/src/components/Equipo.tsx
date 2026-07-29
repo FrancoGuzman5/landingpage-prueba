@@ -13,7 +13,7 @@ const equipo = [
     foto: "/images/equipo/nicolas.jpg",
   },
   {
-    nombre: "Bruno Rubilar Nuñez",
+    nombre: "Bruno Rubilar Núñez",
     rol: "Ing. en Expediciones y Ecoturismo",
     detalle: "Guía de expediciones",
     foto: "/images/equipo/bruno.jpg",
@@ -36,11 +36,13 @@ export default function Equipo() {
         {/* 1. Imagen de Fondo Absoluta */}
         <Image
           src="/images/nosotros.jpg"
-          alt="Somos Kumelen Endémico"
+          alt="Equipo de Kumelen Endémico en terreno, en un paisaje del sur de Chile"
           width={1400}
           height={900}
+          // Sin `sizes` el navegador pedía la variante de 3840px para una
+          // imagen que nunca supera los ~1400 de ancho.
+          sizes="(min-width: 1400px) 1400px, 100vw"
           className="absolute inset-0 w-full h-full object-cover"
-          priority
         />
         
         {/* 2. Capa Oscura (Overlay) Absoluta para que el texto resalte */}
@@ -51,7 +53,7 @@ export default function Equipo() {
         <div className="relative z-10 pt-32 pb-16 px-6">
           <div className="max-w-xl ml-auto text-right mb-16">
             <h2 className="font-poppins font-bold text-4xl text-white tracking-wide">
-              QUIENES HACEN DE
+              QUIÉNES HACEN DE
             </h2>
             <p className="font-artifact text-[45px] text-kumelenGold leading-tight mb-6">
               Kumelen

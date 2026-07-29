@@ -1,7 +1,8 @@
 // src/components/Hero.tsx
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import {motion, AnimatePresence} from "framer-motion"
 
@@ -29,7 +30,7 @@ export default function Hero() {
       <AnimatePresence mode="wait">  
         <motion.video
           key={videos[current]}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000"
+          className="absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-1000"
           src={videos[current]}
           autoPlay
           preload="metadata"
@@ -42,27 +43,68 @@ export default function Hero() {
           transition={{duration: 1.5, ease: "easeInOut"}}
         />
       </AnimatePresence>
-      {/* Overlay para oscurecer un poco el vídeo */}
-      <div className="absolute inset-0 bg-black/40" />
+      {/* ─── Scrim ──────────────────────────────────────
+          Capa oscura constante sobre el vídeo y por debajo del texto (z-10).
+          Un degradado fijo garantiza contraste legible sea cual sea el
+          fotograma del vídeo que esté pasando. */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(10,25,18,.30), rgba(10,25,18,.55))",
+        }}
+      />
 
-      {/* ─── Texto + Logo grande ─────────────────────── */}
-      {/* flex-col centrado verticalmente: sin márgenes negativos,
-          el texto queda siempre visible en cualquier alto de pantalla */}
-      {/* Móvil: centrado. Desktop (md+): alineado a la izquierda como antes. */}
-      <div id="hero-logo" className="relative z-20 flex h-full flex-col justify-center gap-16 pb-32
+      {/* ─── Contenido del Hero ──────────────────────────
+          Mantiene id="hero-logo": es el elemento que observa useHeroLogo para
+          decidir si la navbar va transparente o fija (ver hooks/useHeroLogo).
+          Móvil: centrado. Desktop (md+): alineado a la izquierda. */}
+      <div id="hero-logo" className="relative z-20 flex h-full flex-col justify-center gap-6
                                      items-center text-center px-6
                                      md:items-start md:text-left md:px-0 md:pl-24">
-        <span className="font-artifact text-[30px] leading-relaxed text-kumelenSand tracking-wide md:pl-16">
-          Conecta<br /> Descubre<br /> Transforma
+        {/* Bajada de marca, ahora como antetítulo */}
+        <span className="font-artifact text-[26px] leading-none text-kumelenSand tracking-wide">
+          Conecta · Descubre · Transforma
         </span>
 
-        <Image
-          src="/images/LOGOTIPO/Logotipo_full_png/Logo full version 3.png"
-          alt="Kumelen Endémico"
-          width={400}
-          height={120}
-          priority
-        />
+        {/* Titular orientado a valor: qué se vende, en una línea */}
+        <h1 className="font-poppins font-bold text-4xl sm:text-5xl md:text-6xl leading-tight text-white max-w-[16ch]">
+          El Chile que no sale en el itinerario
+        </h1>
+
+        {/* Subtítulo: para quién y dónde */}
+        <p className="font-poppins text-lg sm:text-xl text-kumelenSand/90 max-w-[46ch]">
+          Expediciones en grupos pequeños por el desierto de Atacama y la
+          Patagonia, con guías registrados en SERNATUR.
+        </p>
+
+        {/* ─── CTAs ──────────────────────────────────────
+            Jerarquía: un único primario (relleno sólido) + un secundario
+            (solo borde). En móvil el primario ocupa el ancho completo. */}
+        <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <Link
+            href="/tours"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg
+                       bg-atacamaCta px-7 py-3.5 font-poppins font-semibold text-white
+                       transition duration-200 hover:-translate-y-0.5 hover:bg-atacamaCtaDark
+                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                       focus-visible:outline-white sm:w-auto"
+          >
+            Ver expediciones
+            <ArrowRight size={20} aria-hidden="true" />
+          </Link>
+
+          <Link
+            href="#filosofia"
+            className="inline-flex w-full items-center justify-center rounded-lg border border-white
+                       bg-transparent px-7 py-3.5 font-poppins font-semibold text-white
+                       transition duration-200 hover:-translate-y-0.5 hover:bg-white/10
+                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                       focus-visible:outline-white sm:w-auto"
+          >
+            Cómo viajamos
+          </Link>
+        </div>
       </div>
     </section>
   );

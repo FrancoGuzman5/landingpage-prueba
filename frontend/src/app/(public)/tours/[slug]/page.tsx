@@ -48,8 +48,9 @@ export default async function TourDetail({
         {tour.image && (
           <Image
             src={tour.image}
-            alt={tour.title}
+            alt={`Paisaje de ${tour.title}, ${tour.location}`}
             fill
+            sizes="100vw"
             className="object-cover"
             priority
           />
@@ -121,7 +122,13 @@ export default async function TourDetail({
                 >
                   {a.foto && (
                     <div className="relative mb-4 h-48 w-full overflow-hidden rounded-lg">
-                      <Image src={a.foto} alt={a.titulo} fill className="object-cover" />
+                      <Image
+                        src={a.foto}
+                        alt={a.pieDeFoto ?? a.titulo}
+                        fill
+                        sizes="(min-width: 896px) 896px, 100vw"
+                        className="object-cover"
+                      />
                     </div>
                   )}
                   <h3 className="font-poppins font-semibold text-kumelenGold">
