@@ -29,6 +29,8 @@ const sanPedro = {
   capacityMin: null, // pendiente de confirmar con el equipo
   capacityMax: null,
   focus: "Cultural",
+  tipo: "Desierto",
+  cuposDisponibles: 6, // TODO: data real — placeholder hasta que el equipo lleve el cupo
   // TODO(Kumelen): cargar el itinerario día a día desde el dossier oficial.
   // Se deja en null a propósito: no se inventa el programa de un tour real.
   itinerario: null,
@@ -143,6 +145,8 @@ const torres = {
   capacityMin: null,
   capacityMax: null,
   focus: "Naturaleza",
+  tipo: "Trekking",
+  cuposDisponibles: 3, // TODO: data real — placeholder hasta que el equipo lleve el cupo
   // Itinerario ficticio, igual que el resto de los datos de este tour.
   // TODO(Kumelen): reemplazar por el programa real cuando exista.
   itinerario: [

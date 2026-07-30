@@ -36,6 +36,10 @@ model Tour {
   includes       String[]  @default([])     // lista de items incluidos
   notIncluded    String[]  @default([])     // lista de items no incluidos
   focus          String?   // espiritual, cultural, etc.
+  tipo           String?   // terreno/actividad para el chip de la tarjeta: "Desierto", "Trekking".
+                           // Es otro eje que `focus` (que es el enfoque temático).
+  cuposDisponibles Int?    // cupos que quedan en la próxima salida. La fecha de esa
+                           // salida es `startDate`; la exigencia se deriva de `difficulty`.
   attractions    Json?                      // [{ titulo, descripcion, foto?, pieDeFoto? }]
   itinerario     Json?                      // [{ dia, titulo, descripcion }] día a día.
                                             // null → la ficha no muestra la sección

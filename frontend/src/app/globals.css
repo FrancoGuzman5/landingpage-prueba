@@ -16,7 +16,14 @@ html {
 /* Tokens de la paleta de conversión, también como variables CSS para usarlas
    fuera de Tailwind (gradientes, scrims, estilos inline). Espejo de los
    colores declarados en tailwind.config.js. */
+/* Los títulos de sección quedaban cortados bajo el navbar fijo al navegar
+   por ancla (#equipo, #contacto…). 88px ≈ alto del navbar + aire. */
+section[id] {
+  scroll-margin-top: 88px;
+}
+
 :root {
+  --dorado: #E0A94F;
   --bosque: #0F3D2E;
   --atacama: #C86A3B;
   --atacama-cta: #A8501F;

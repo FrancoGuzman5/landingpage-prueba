@@ -73,7 +73,7 @@ export default function SiBuscas() {
             <Link
               href={o.href}
               className="mt-2 inline-flex items-center gap-1.5 font-poppins text-sm
-                         font-semibold text-kumelenGold transition
+                         font-semibold text-arena transition
                          hover:gap-2.5 hover:text-white"
             >
               {o.cta}

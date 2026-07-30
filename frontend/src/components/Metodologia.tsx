@@ -30,7 +30,7 @@ export default function Metodologia() {
         <h2 className="font-poppins font-bold text-4xl text-white tracking-wide">
           METODOLOGÍA
         </h2>
-        <p className="font-artifact text-[45px] text-kumelenGold leading-tight mb-4">
+        <p className="font-artifact text-[45px] text-dorado leading-tight mb-4">
           Kumelen
         </p>
         <p className="mx-auto max-w-2xl font-poppins text-kumelenSand/90 mb-14">

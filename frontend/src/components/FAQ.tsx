@@ -39,7 +39,7 @@ export default function FAQ() {
   return (
     <section id="faq" className="scroll-mt-24 bg-kumelenDark py-20">
       <div className="mx-auto max-w-3xl px-6">
-        <p className="font-artifact text-[30px] text-kumelenGold">Preguntas</p>
+        <p className="font-artifact text-[30px] text-dorado">Preguntas</p>
         <h2 className="font-poppins font-bold text-4xl text-white">Frecuentes</h2>
 
         <div className="mt-10 space-y-3">

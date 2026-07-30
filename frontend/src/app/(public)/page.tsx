@@ -65,7 +65,8 @@ export default function Home() {
       <VideoSection src="/videos/IMG_1188.mp4" id="video-3">
         <Link
           href="/tours"
-          className="rounded bg-kumelenGold px-6 py-3 font-semibold text-kumelenDark hover:opacity-90"
+          className="rounded-lg bg-atacamaCta px-6 py-3 font-semibold text-white
+                     transition duration-200 hover:-translate-y-0.5 hover:bg-atacamaCtaDark"
         >
           Reserva ahora
         </Link>

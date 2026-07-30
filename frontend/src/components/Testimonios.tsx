@@ -25,7 +25,7 @@ export default function Testimonios() {
   return (
     <section id="testimonios" className="scroll-mt-24 bg-kumelenBrown py-20">
       <div className="mx-auto max-w-5xl px-6">
-        <p className="font-artifact text-[30px] text-kumelenGold">Quienes ya</p>
+        <p className="font-artifact text-[30px] text-dorado">Quienes ya</p>
         <h2 className="font-poppins font-bold text-4xl text-white">Viajaron</h2>
 
         {testimonios.length === 0 ? (

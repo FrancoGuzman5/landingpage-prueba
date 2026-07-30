@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-import { LogoProvider } from "@/hooks/useHeroLogo";
 import ConditionalNav from "@/components/ConditionalNav";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
@@ -60,12 +59,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <body className={`${poppins.variable} ${artifact.variable} font-poppins bg-kumelenDark text-white antialiased`}>
         <Providers>
-          <LogoProvider>
-            <ConditionalNav />
-            {children}
-            <Footer/>
-            <WhatsAppButton />
-          </LogoProvider>
+          <ConditionalNav />
+          {children}
+          <Footer/>
+          <WhatsAppButton />
         </Providers>
       </body>
     </html>

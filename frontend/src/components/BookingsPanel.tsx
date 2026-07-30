@@ -102,7 +102,7 @@ export default function BookingsPanel({
               <tr>
                 <th className="px-4 py-3 font-semibold">Cliente</th>
                 <th className="px-4 py-3 font-semibold">Contacto</th>
-                <th className="px-4 py-3 font-semibold">Tour</th>
+                <th className="px-4 py-3 font-semibold">Expedición</th>
                 <th className="px-4 py-3 font-semibold text-center">Personas</th>
                 <th className="px-4 py-3 font-semibold text-right">Monto</th>
                 <th className="px-4 py-3 font-semibold text-center">Estado</th>

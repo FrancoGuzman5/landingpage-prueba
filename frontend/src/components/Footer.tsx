@@ -29,7 +29,7 @@ export default function Footer() {
         <div>
           <h4 className="mb-2 font-poppins font-bold">Enlaces</h4>
           <ul className="space-y-1">
-            <li><Link href="/tours">Tours</Link></li>
+            <li><Link href="/tours">Expediciones</Link></li>
             <li><Link href="/#equipo">Nosotros</Link></li>
             <li><Link href="/#contacto">Contacto</Link></li>
           </ul>

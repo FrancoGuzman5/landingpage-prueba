@@ -56,10 +56,8 @@ export default function Hero() {
       />
 
       {/* ─── Contenido del Hero ──────────────────────────
-          Mantiene id="hero-logo": es el elemento que observa useHeroLogo para
-          decidir si la navbar va transparente o fija (ver hooks/useHeroLogo).
           Móvil: centrado. Desktop (md+): alineado a la izquierda. */}
-      <div id="hero-logo" className="relative z-20 flex h-full flex-col justify-center gap-6
+      <div className="relative z-20 flex h-full flex-col justify-center gap-6
                                      items-center text-center px-6
                                      md:items-start md:text-left md:px-0 md:pl-24">
         {/* Bajada de marca, ahora como antetítulo */}

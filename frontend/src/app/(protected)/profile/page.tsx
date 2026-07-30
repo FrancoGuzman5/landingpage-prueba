@@ -86,7 +86,7 @@ export default async function ProfilePage() {
   return (
     <main className="min-h-screen bg-kumelenDark px-6 pt-28 pb-16 text-white">
       <div className="mx-auto max-w-2xl">
-        <p className="font-artifact text-[30px] text-kumelenGold">Mi</p>
+        <p className="font-artifact text-[30px] text-dorado">Mi</p>
         <h1 className="mb-8 font-poppins font-bold text-3xl">Perfil</h1>
 
         {!me ? (

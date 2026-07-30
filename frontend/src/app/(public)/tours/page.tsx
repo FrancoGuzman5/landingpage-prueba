@@ -4,6 +4,7 @@
 // loading.tsx (skeletons). Los detalles están en /tours/[slug].
 
 import TourCard from "@/components/TourCard";
+import ProximamenteCard from "@/components/ProximamenteCard";
 import { fetchTours } from "@/lib/tours";
 
 export default async function ToursPage() {
@@ -12,8 +13,9 @@ export default async function ToursPage() {
   return (
     <main className="min-h-screen bg-kumelenDark px-6 pt-28 pb-16 text-white">
       <div className="mx-auto max-w-6xl">
-        <p className="font-artifact text-[30px] text-kumelenGold">Nuestros</p>
-        <h1 className="mb-4 font-poppins font-bold text-4xl">Tours</h1>
+        {/* Concuerda en femenino con "Expediciones" */}
+        <p className="font-artifact text-[30px] text-dorado">Nuestras</p>
+        <h1 className="mb-4 font-poppins font-bold text-4xl">Expediciones</h1>
         <p className="mb-12 max-w-2xl text-kumelenSand/80">
           Rutas de autor por los rincones más auténticos de Chile: grupos
           reducidos, guías expertos y experiencias diseñadas con propósito.
@@ -24,23 +26,33 @@ export default async function ToursPage() {
             Pronto nuevas experiencias.
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          // Flex centrado en vez de grid: con pocas expediciones, el grid las
+          // dejaba pegadas a la izquierda con un hueco grande a la derecha.
+          <div className="flex flex-wrap justify-center gap-8">
             {tours.map((t) => (
-              <TourCard
-                key={t.slug}
-                title={t.title}
-                image={t.image}
-                price={t.price}
-                priceOriginal={t.priceOriginal}
-                motivoDescuento={t.motivoDescuento}
-                cuotas={t.cuotas}
-                durationDays={t.durationDays}
-                capacityMax={t.capacityMax}
-                includes={t.includes}
-                location={t.location}
-                slug={t.slug}
-              />
+              <div key={t.slug} className="w-full max-w-sm sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]">
+                <TourCard
+                  title={t.title}
+                  image={t.image}
+                  price={t.price}
+                  priceOriginal={t.priceOriginal}
+                  motivoDescuento={t.motivoDescuento}
+                  cuotas={t.cuotas}
+                  durationDays={t.durationDays}
+                  capacityMax={t.capacityMax}
+                  includes={t.includes}
+                  location={t.location}
+                  difficulty={t.difficulty}
+                  tipo={t.tipo}
+                  startDate={t.startDate}
+                  cuposDisponibles={t.cuposDisponibles}
+                  slug={t.slug}
+                />
+              </div>
             ))}
+            <div className="w-full max-w-sm sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]">
+              <ProximamenteCard />
+            </div>
           </div>
         )}
       </div>

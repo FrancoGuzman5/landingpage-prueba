@@ -1,27 +1,20 @@
 // src/components/ConditionalNav.tsx
-"use client";
+// Elige la navegación según el ancho: hamburguesa en celular, Navbar en
+// desktop. Ambos componentes ya se ocultan solos por breakpoint.
+//
+// Antes acá había una tercera nav (HeroNav) con botones dorados que se
+// mostraba sobre el hero. Se eliminó: el dorado queda reservado a la
+// tipografía decorativa, y el navbar translúcido es el mismo en todas las
+// páginas y en todo el scroll.
 
-import { usePathname } from "next/navigation";
-import { useHeroLogo } from "@/hooks/useHeroLogo";
-import HeroNav from "@/components/HeroNav";
-import Navbar from "@/components/Navbar";
 import MobileMenu from "@/components/MobileMenu";
+import Navbar from "@/components/Navbar";
 
 export default function ConditionalNav() {
-  const pathname = usePathname();
-  const { visible } = useHeroLogo();
-
-  // En celular siempre el menú hamburguesa (MobileMenu es md:hidden).
-  // En desktop, Navbar/HeroNav (ambos hidden md:flex) según la lógica:
-  //  - fuera de la home → Navbar fijo (para que "/#seccion" funcione)
-  //  - en la home → HeroNav mientras el logo grande está a la vista, luego Navbar
-  const desktopNav =
-    pathname !== "/" ? <Navbar /> : visible ? <HeroNav /> : <Navbar />;
-
   return (
     <>
       <MobileMenu />
-      {desktopNav}
+      <Navbar />
     </>
   );
 }

@@ -55,7 +55,7 @@ export default function Equipo() {
             <h2 className="font-poppins font-bold text-4xl text-white tracking-wide">
               QUIÉNES HACEN DE
             </h2>
-            <p className="font-artifact text-[45px] text-kumelenGold leading-tight mb-6">
+            <p className="font-artifact text-[45px] text-dorado leading-tight mb-6">
               Kumelen
             </p>
             <p className="mx-auto max-w-3xl font-poppins text-kumelenSand/90 mb-14 leading-relaxed">

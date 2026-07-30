@@ -34,7 +34,7 @@ export default async function AdminPage() {
   return (
     <main className="min-h-screen bg-kumelenDark px-6 pt-28 pb-16 text-white">
       <div className="mx-auto max-w-6xl">
-        <p className="font-artifact text-[30px] text-kumelenGold">Panel</p>
+        <p className="font-artifact text-[30px] text-dorado">Panel</p>
         <h1 className="font-poppins font-bold text-3xl mb-2">Reservas</h1>
         <p className="text-kumelenSand/70 mb-8">
           {bookings.length} {bookings.length === 1 ? "reserva" : "reservas"} en total

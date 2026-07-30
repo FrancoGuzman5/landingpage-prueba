@@ -156,7 +156,7 @@ export default function MetodologiaVuelo() {
             <h2 className="font-poppins font-bold text-4xl text-white tracking-wide">
               METODOLOGÍA
             </h2>
-            <p className="font-artifact text-[45px] text-kumelenGold leading-tight">
+            <p className="font-artifact text-[45px] text-dorado leading-tight">
               Kumelen
             </p>
           </div>

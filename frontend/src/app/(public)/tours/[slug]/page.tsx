@@ -24,12 +24,14 @@ import {
 } from "@/lib/tours";
 import ReservaForm from "@/components/ReservaForm";
 
-// Fecha ISO → "19 nov 2026"
+// Fecha ISO → "19 nov 2026". timeZone UTC: las fechas se guardan como día
+// puro, y sin esto en Chile (UTC-3) se mostraban corridas un día hacia atrás.
 function fmtFecha(iso: string) {
   return new Date(iso).toLocaleDateString("es-CL", {
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
 
@@ -81,7 +83,7 @@ export default async function TourDetail({
         )}
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-          <p className="font-artifact text-[30px] text-kumelenGold">Ruta de viaje</p>
+          <p className="font-artifact text-[30px] text-dorado">Ruta de viaje</p>
           <h1 className="font-poppins font-bold text-4xl sm:text-6xl">{tour.title}</h1>
           <p className="mt-3 flex items-center gap-2 text-kumelenSand/90">
             <MapPin size={18} /> {tour.location}
@@ -190,7 +192,7 @@ export default async function TourDetail({
         {/* ─── Alojamiento ────────────────────────────────────── */}
         {tour.accommodation && (
           <section className="rounded-xl bg-kumelenBrown p-8">
-            <p className="font-artifact text-[26px] text-kumelenGold">Alojamiento</p>
+            <p className="font-artifact text-[26px] text-dorado">Alojamiento</p>
             <h2 className="font-poppins font-bold text-2xl mb-3">
               {tour.accommodation.nombre}
             </h2>
@@ -258,7 +260,7 @@ export default async function TourDetail({
             )}
             <div className="flex items-baseline justify-center gap-2">
               <span className="font-poppins text-[13px] text-kumelenSand/70">desde</span>
-              <span className="font-poppins text-[32px] font-medium leading-none text-kumelenGold">
+              <span className="font-poppins text-[32px] font-medium leading-none text-white">
                 {formatCLP(tour.price)}
               </span>
               {conDescuento && (

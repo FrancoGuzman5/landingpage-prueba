@@ -41,6 +41,8 @@ export type Tour = {
   includes: string[];
   notIncluded: string[];
   focus: string | null;
+  tipo: string | null;
+  cuposDisponibles: number | null;
   attractions: Attraction[] | null;
   accommodation: Accommodation | null;
   itinerario: DiaItinerario[] | null;
@@ -132,19 +134,52 @@ export function microLineaPrecio(
  * en la decisión de compra.
  */
 const CATEGORIAS: { etiqueta: string; patron: RegExp }[] = [
-  { etiqueta: "Vuelos incluidos", patron: /tickets?\s+a[ée]reos?|vuelos?|pasajes?\s+a[ée]reos?/i },
-  { etiqueta: "Alojamiento incluido", patron: /alojamiento|hospedaje|hotel|hostal/i },
-  { etiqueta: "Transporte incluido", patron: /transporte|traslados?/i },
-  { etiqueta: "Alimentación incluida", patron: /alimentaci[óo]n|desayuno|almuerzo|cena|box\s*lunch/i },
+  { etiqueta: "Vuelos", patron: /tickets?\s+a[ée]reos?|vuelos?|pasajes?\s+a[ée]reos?/i },
+  { etiqueta: "Alojamiento", patron: /alojamiento|hospedaje|hotel|hostal/i },
+  { etiqueta: "Transporte", patron: /transporte|traslados?/i },
+  { etiqueta: "Alimentación", patron: /alimentaci[óo]n|desayuno|almuerzo|cena|box\s*lunch/i },
   { etiqueta: "Guía certificado", patron: /gu[íi]as?\b/i },
-  { etiqueta: "Entradas incluidas", patron: /entradas?\b/i },
+  { etiqueta: "Entradas", patron: /entradas?\b/i },
 ];
 
-export function resumenIncluye(includes: string[], max = 3): string[] {
+export function resumenIncluye(includes: string[], max = 4): string[] {
   if (!includes?.length) return [];
   return CATEGORIAS.filter((c) => includes.some((i) => c.patron.test(i)))
     .slice(0, max)
     .map((c) => c.etiqueta);
+}
+
+/**
+ * Nivel de exigencia en UNA palabra para el chip de la tarjeta.
+ *
+ * En la base la exigencia viene del dossier como rango ("Light - Moderada",
+ * "Moderada - Exigente"). Para el chip se toma el extremo más alto —es el que
+ * la persona necesita poder sostener— y se traduce al vocabulario del sitio:
+ * Suave · Moderada · Exigente. La ficha sigue mostrando el rango completo.
+ */
+export function nivelDificultad(difficulty: string | null): string | null {
+  if (!difficulty) return null;
+  const ultimo = difficulty.split(/[-–/]/).pop()?.trim().toLowerCase() ?? "";
+  if (/light|suave|f[áa]cil|baja/.test(ultimo)) return "Suave";
+  if (/moderad/.test(ultimo)) return "Moderada";
+  if (/exigente|alta|dif[íi]cil/.test(ultimo)) return "Exigente";
+  return null;
+}
+
+/**
+ * ISO → "14 ene 2027".
+ *
+ * timeZone UTC a propósito: las fechas de salida se guardan como día puro
+ * (medianoche UTC). Sin esto, al formatear en Chile (UTC-3) retroceden al día
+ * anterior y una salida del 14 se muestra como 13.
+ */
+export function formatFechaCorta(iso: string): string {
+  return new Date(iso).toLocaleDateString("es-CL", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 }
 
 /**

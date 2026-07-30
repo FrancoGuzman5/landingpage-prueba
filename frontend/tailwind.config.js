@@ -16,9 +16,10 @@ module.exports = {
         white:        "#FFFFFF",
 
         // ─── Tokens de conversión (rediseño) ───────────────────────────────
-        // Paleta orientada a jerarquía visual y contraste AA. Conviven con los
-        // tokens kumelen* de marca; por ahora se usan en CTAs y secciones nuevas.
-        bosque:     "#0F3D2E", // verde valdiviano: CTAs sobre fondo claro, texto
+        // ROLES (respetar siempre): nada accionable en dorado, nada decorativo
+        // en terracota. Conviven con los tokens kumelen* de marca.
+        dorado:     "#E0A94F", // SOLO tipografía script decorativa (font-artifact)
+        bosque:     "#0F3D2E", // verde valdiviano: chips, fondos de sección
         atacama:    "#C86A3B", // acento: subrayados y detalles GRANDES solamente
         atacamaCta: "#A8501F", // naranja de botones con texto blanco (5.48:1, AA)
         atacamaCtaDark: "#8E4319", // hover del botón primario

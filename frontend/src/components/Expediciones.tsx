@@ -15,7 +15,7 @@ export default async function Expediciones() {
   return (
     <section id="expediciones" className="scroll-mt-24 bg-kumelenDark py-20">
       <div className="mx-auto max-w-6xl px-6">
-        <p className="font-artifact text-[30px] text-kumelenGold">Nuestras</p>
+        <p className="font-artifact text-[30px] text-dorado">Nuestras</p>
         <h2 className="font-poppins font-bold text-4xl text-white">Expediciones</h2>
         <p className="mt-4 max-w-2xl font-poppins text-kumelenSand/80">
           Rutas de autor en grupos reducidos, con guías registrados en SERNATUR
@@ -27,22 +27,28 @@ export default async function Expediciones() {
             Pronto nuevas experiencias.
           </p>
         ) : (
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          // Centrado: con pocas expediciones el grid las dejaba a la izquierda.
+          <div className="mt-10 flex flex-wrap justify-center gap-8">
             {tours.map((t) => (
-              <TourCard
-                key={t.slug}
-                title={t.title}
-                image={t.image}
-                price={t.price}
-                priceOriginal={t.priceOriginal}
-                motivoDescuento={t.motivoDescuento}
-                cuotas={t.cuotas}
-                durationDays={t.durationDays}
-                capacityMax={t.capacityMax}
-                includes={t.includes}
-                location={t.location}
-                slug={t.slug}
-              />
+              <div key={t.slug} className="w-full max-w-sm sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]">
+                <TourCard
+                  title={t.title}
+                  image={t.image}
+                  price={t.price}
+                  priceOriginal={t.priceOriginal}
+                  motivoDescuento={t.motivoDescuento}
+                  cuotas={t.cuotas}
+                  durationDays={t.durationDays}
+                  capacityMax={t.capacityMax}
+                  includes={t.includes}
+                  location={t.location}
+                  difficulty={t.difficulty}
+                  tipo={t.tipo}
+                  startDate={t.startDate}
+                  cuposDisponibles={t.cuposDisponibles}
+                  slug={t.slug}
+                />
+              </div>
             ))}
           </div>
         )}
@@ -51,9 +57,9 @@ export default async function Expediciones() {
         <div className="mt-10">
           <Link
             href="/tours"
-            className="inline-flex items-center gap-2 rounded-lg border border-kumelenGold
-                       px-6 py-3 font-poppins font-semibold text-kumelenGold
-                       transition duration-200 hover:-translate-y-0.5 hover:bg-kumelenGold/10"
+            className="inline-flex items-center gap-2 rounded-full border border-white/55
+                       px-6 py-3 font-poppins font-semibold text-white
+                       transition duration-200 hover:-translate-y-0.5 hover:bg-white/[.14]"
           >
             Ver todas las expediciones
             <ArrowRight size={18} aria-hidden="true" />

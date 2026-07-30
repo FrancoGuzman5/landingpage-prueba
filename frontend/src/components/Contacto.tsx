@@ -17,7 +17,7 @@ export default function Contacto() {
   return (
     <section id="contacto" className="scroll-mt-24 bg-kumelenBrown py-20">
       <div className="mx-auto max-w-3xl px-6 text-center">
-        <p className="font-artifact text-[30px] text-kumelenGold">Hablemos</p>
+        <p className="font-artifact text-[30px] text-dorado">Hablemos</p>
         <h2 className="font-poppins font-bold text-4xl text-white">
           ¿Te acompañamos a elegir?
         </h2>

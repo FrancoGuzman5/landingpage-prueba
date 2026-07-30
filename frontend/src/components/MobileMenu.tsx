@@ -1,18 +1,18 @@
 // src/components/MobileMenu.tsx
 // Menú de navegación para celular (hamburguesa). Solo visible en < md;
-// en desktop se usan Navbar/HeroNav. Los enlaces "/#seccion" llevan a la
-// home y bajan a la sección, funcionan desde cualquier página.
+// en desktop se usa Navbar. Los enlaces "/#seccion" llevan a la home y
+// bajan a la sección, funcionan desde cualquier página.
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
+import LogoKumelen from "@/components/LogoKumelen";
 
 // Enlaces públicos (siempre visibles)
 const publicos = [
-  { href: "/tours", label: "Tours" },
+  { href: "/tours", label: "Expediciones" },
   { href: "/#equipo", label: "Nosotros" },
   { href: "/#contacto", label: "Contacto" },
 ];
@@ -27,7 +27,8 @@ export default function MobileMenu() {
   const privados = [
     ...(session ? [{ href: "/profile", label: "Perfil" }] : []),
     ...(isAdmin ? [{ href: "/admin", label: "Panel administrador" }] : []),
-    ...(session ? [] : [{ href: "/login", label: "Iniciar sesión / Registrarse" }]),
+    // El registro vive dentro del flujo de /login.
+    ...(session ? [] : [{ href: "/login", label: "Ingresar" }]),
   ];
 
   // Cierra el menú y, si el enlace apunta a una sección de la home y ya
@@ -53,8 +54,12 @@ export default function MobileMenu() {
       <div className="fixed inset-x-0 top-0 z-[9999] flex h-16 items-center justify-between
                       px-4 bg-kumelenDark/30 backdrop-blur-lg
                       border-b border-white/10 shadow-lg shadow-black/5">
-        <Link href="/#hero" onClick={() => setOpen(false)}>
-          <Image src="/Isologo.png" alt="Kumelen" width={80} height={28} priority />
+        <Link
+          href="/#hero"
+          onClick={() => setOpen(false)}
+          aria-label="Kumelen Endémico — ir al inicio"
+        >
+          <LogoKumelen />
         </Link>
         <button
           onClick={() => setOpen(!open)}
@@ -74,8 +79,8 @@ export default function MobileMenu() {
                 <Link
                   href={l.href}
                   onClick={(e) => handleClick(e, l.href)}
-                  className={`block rounded-lg px-4 py-3 hover:bg-kumelenGold/10 ${
-                    l.href === "/admin" ? "font-semibold text-kumelenGold" : ""
+                  className={`block rounded-lg px-4 py-3 hover:bg-white/10 ${
+                    l.href === "/admin" ? "font-semibold text-white" : ""
                   }`}
                 >
                   {l.label}
@@ -89,7 +94,7 @@ export default function MobileMenu() {
                     setOpen(false);
                     signOut({ callbackUrl: "/" });
                   }}
-                  className="block w-full rounded-lg px-4 py-3 text-left hover:bg-kumelenGold/10"
+                  className="block w-full rounded-lg px-4 py-3 text-left hover:bg-white/10"
                 >
                   Cerrar sesión
                 </button>
