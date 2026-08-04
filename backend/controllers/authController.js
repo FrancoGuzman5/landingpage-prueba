@@ -49,7 +49,10 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { userId: user.id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      // Con la variable sin definir, jwt.sign recibe undefined y emite un
+      // token SIN caducidad: si se filtra, vale para siempre. El fallback
+      // garantiza que todo token tenga vencimiento.
+      { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
     );
 
     // 4) Devolver token y usuario sin password
