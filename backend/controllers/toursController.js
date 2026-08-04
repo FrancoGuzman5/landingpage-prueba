@@ -1,10 +1,13 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { limite } = require("../utils/limite");
 
 // Obtener todos los tours
 const getAllTours = async (req, res) => {
   try {
-    const tours = await prisma.tour.findMany();
+    // La respuesta sigue siendo un array pelado: el frontend hace tours.map()
+    // directo sobre ella.
+    const tours = await prisma.tour.findMany({ take: limite(req.query) });
     res.json(tours);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener los tours" });
@@ -110,7 +113,10 @@ const searchToursByTitle = async (req, res) => {
           contains: title,
           mode: 'insensitive' // no distingue mayúsculas/minúsculas
         }
-      }
+      },
+      // Una búsqueda con título vacío equivale a "traer todo": el tope aplica
+      // igual que en el listado.
+      take: limite(req.query),
     });
 
     res.json(tours);

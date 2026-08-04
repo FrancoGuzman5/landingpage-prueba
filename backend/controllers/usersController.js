@@ -1,16 +1,36 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
+const { limite } = require("../utils/limite");
+
+// findMany sin select trae TODAS las columnas, incluida `password`. Aunque la
+// ruta sea solo de ADMIN, el hash no tiene por qué salir del servidor: si se
+// filtra, se puede atacar offline por fuerza bruta.
+const CAMPOS_PUBLICOS = {
+  id: true,
+  name: true,
+  email: true,
+  phone: true,
+  role: true,
+  createdAt: true,
+  updatedAt: true,
+};
 
 const getAllUsers = async (req, res) => {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({
+    select: CAMPOS_PUBLICOS,
+    take: limite(req.query),
+  });
   res.json(users);
 };
 
 const getUserById = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await prisma.user.findUnique({ where: { id: Number(id) } });
+    const user = await prisma.user.findUnique({
+      where: { id: Number(id) },
+      select: CAMPOS_PUBLICOS,
+    });
     if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
     res.json(user);
   } catch (err) {
@@ -48,6 +68,7 @@ const updateUser = async (req, res) => {
     const updated = await prisma.user.update({
       where: { id: Number(id) },
       data: { name, email },
+      select: CAMPOS_PUBLICOS,
     });
     res.json(updated);
   } catch (err) {

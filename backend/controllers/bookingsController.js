@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { limite } = require("../utils/limite");
 
 // Crear una reserva (híbrida: con sesión o como invitado).
 // Pasa por optionalAuth: si hay token, req.user existe.
@@ -59,6 +60,9 @@ const getAllBookings = async (req, res) => {
     const bookings = await prisma.booking.findMany({
       include: { tour: true },
       orderBy: { reservedAt: "desc" }, // más recientes primero, orden estable
+      // Con el orden descendente, el tope recorta las MÁS ANTIGUAS: el panel
+      // siempre muestra la actividad reciente, que es la que se gestiona.
+      take: limite(req.query),
     });
 
     res.json(bookings);
@@ -75,6 +79,7 @@ const getMyBookings = async (req, res) => {
       where: { userId: req.user.userId },
       include: { tour: true },
       orderBy: { reservedAt: "desc" },
+      take: limite(req.query),
     });
     res.json(bookings);
   } catch (err) {
@@ -89,7 +94,8 @@ const getBookingsByUser = async (req, res) => {
   try {
     const bookings = await prisma.booking.findMany({
       where: { userId },
-      include: { tour: true }
+      include: { tour: true },
+      take: limite(req.query),
     });
     res.json(bookings);
   } catch (err) {
@@ -122,7 +128,14 @@ const searchBookings = async (req, res) => {
   try {
     const bookings = await prisma.booking.findMany({
       where,
-      include: { user: true, tour: true }
+      include: {
+        // `user: true` arrastraba también el hash de la contraseña. Se listan
+        // los campos a mano para que no pueda volver a colarse al agregar
+        // columnas nuevas al modelo.
+        user: { select: { id: true, name: true, email: true, phone: true, role: true } },
+        tour: true,
+      },
+      take: limite(req.query),
     });
     res.json(bookings);
   } catch (err) {
