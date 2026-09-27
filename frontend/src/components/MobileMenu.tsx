@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import LogoKumelen from "@/components/LogoKumelen";
+import AvisoDemo from "@/components/AvisoDemo";
 
 // Enlaces públicos (siempre visibles)
 const publicos = [
@@ -54,13 +55,16 @@ export default function MobileMenu() {
       <div className="fixed inset-x-0 top-0 z-[9999] flex h-16 items-center justify-between
                       px-4 bg-kumelenDark/30 backdrop-blur-lg
                       border-b border-white/10 shadow-lg shadow-black/5">
-        <Link
-          href="/#hero"
-          onClick={() => setOpen(false)}
-          aria-label="Kumelen Endémico — ir al inicio"
-        >
-          <LogoKumelen />
-        </Link>
+        <div className="flex min-w-0 items-center gap-2">
+          <Link
+            href="/#hero"
+            onClick={() => setOpen(false)}
+            aria-label="Kumelen Endémico — ir al inicio"
+          >
+            <LogoKumelen />
+          </Link>
+          <AvisoDemo />
+        </div>
         <button
           onClick={() => setOpen(!open)}
           aria-label={open ? "Cerrar menú" : "Abrir menú"}

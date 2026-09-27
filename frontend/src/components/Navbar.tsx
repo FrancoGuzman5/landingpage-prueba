@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import LogoKumelen from "@/components/LogoKumelen";
+import AvisoDemo from "@/components/AvisoDemo";
 
 const navVariants: Variants = {
   hidden: { y: -80, opacity: 0 },
@@ -51,9 +52,12 @@ export default function Navbar() {
                  border-b border-white/10 bg-kumelenDark/30 px-8 py-4
                  shadow-lg shadow-black/5 backdrop-blur-lg md:flex"
     >
-      <Link href="/#hero" aria-label="Kumelen Endémico — ir al inicio">
-        <LogoKumelen />
-      </Link>
+      <div className="flex min-w-0 items-center gap-3">
+        <Link href="/#hero" aria-label="Kumelen Endémico — ir al inicio">
+          <LogoKumelen />
+        </Link>
+        <AvisoDemo />
+      </div>
 
       <ul className="flex items-center gap-6 font-poppins text-arena">
         {enlaces.map((l) => {

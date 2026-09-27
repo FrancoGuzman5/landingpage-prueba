@@ -52,6 +52,17 @@ export const metadata: Metadata = {
   description:
     "Expediciones en grupos pequeños por el desierto de Atacama y la Patagonia, " +
     "con guías registrados en SERNATUR. Viajes de autor, sin prisa y con propósito.",
+
+  // Este sitio es una demostración, no la web operativa de Kumelen. Fuera del
+  // buscador para que nadie llegue por casualidad y crea que está contratando
+  // un viaje: cortar el acceso por búsqueda es más efectivo que cualquier
+  // aviso en pantalla.
+  //
+  // A propósito NO se acompaña de un Disallow en robots.txt: bloquear el
+  // rastreo impediría que Google leyera este mismo noindex, y las páginas ya
+  // indexadas se quedarían pegadas en los resultados. Para sacarlas hay que
+  // dejarlo entrar justamente para que vea la etiqueta.
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
