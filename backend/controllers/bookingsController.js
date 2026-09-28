@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const { limite } = require("../utils/limite");
+const { notificarNuevaReserva } = require("../services/email");
 
 // Crear una reserva (híbrida: con sesión o como invitado).
 // Pasa por optionalAuth: si hay token, req.user existe.
@@ -46,6 +47,18 @@ const createBooking = async (req, res) => {
       },
       include: { tour: true },
     });
+
+    // Aviso al negocio. Sin await a propósito: el correo es un aviso interno,
+    // no parte de la reserva, y el cliente no tiene por qué esperar a que
+    // Resend responda para ver su confirmación. La reserva ya quedó guardada;
+    // si el correo falla, queda en el log y la reserva sigue visible en el panel.
+    //
+    // Esto funciona porque Render ejecuta un proceso Node persistente. En una
+    // plataforma serverless habría que esperarlo: la función se congela al
+    // responder y el envío quedaría a medias.
+    notificarNuevaReserva(newBooking, { esInvitado: !userId }).catch((err) =>
+      console.error("[email] Aviso de reserva falló:", err)
+    );
 
     res.status(201).json(newBooking);
   } catch (error) {
