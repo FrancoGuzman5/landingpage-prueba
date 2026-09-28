@@ -38,6 +38,9 @@ function paginaMantencion() {
         text-align: center; padding: 24px;
       }
       main { max-width: 34rem; }
+      /* El isologo original es de 3860px: se limita por CSS para no servir
+         una imagen enorme en una página que solo lleva un mensaje. */
+      img { width: 96px; height: auto; margin: 0 auto 1.5rem; display: block; }
       h1 { font-size: 1.75rem; margin: 0 0 1rem; color: #fff; font-weight: 600; }
       p { line-height: 1.6; margin: 0 0 .75rem; color: rgba(232,225,212,.85); }
       .nota { font-size: .8rem; color: rgba(232,225,212,.5); margin-top: 2rem; }
@@ -45,6 +48,7 @@ function paginaMantencion() {
   </head>
   <body>
     <main>
+      <img src="/Isologo.png" alt="Kumelen Endémico" width="96" height="87" />
       <h1>Estamos trabajando en el sitio</h1>
       <p>Esta web está en desarrollo y volverá a estar disponible pronto.</p>
       <p class="nota">Sitio de demostración · no es la web oficial de Kumelen Endémico.</p>
