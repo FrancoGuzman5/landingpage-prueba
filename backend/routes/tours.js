@@ -4,6 +4,7 @@ const authenticate = require("../middlewares/authMiddleware");
 const authorize = require("../middlewares/authorize");
 const {
   getAllTours,
+  getToursAdmin,
   createTour,
   getTourById,
   getTourBySlug,
@@ -17,6 +18,11 @@ const {
 // sean capturadas por el comodín de slug.
 router.get("/", getAllTours);
 router.get("/search", searchToursByTitle);
+
+// Listado del panel (incluye borradores). Va ANTES de /:slug o el comodín se
+// lo comería creyendo que "admin" es el slug de una expedición.
+router.get("/admin", authenticate, authorize("ADMIN"), getToursAdmin);
+
 router.get("/id/:id", getTourById);
 router.get("/:slug", getTourBySlug);
 

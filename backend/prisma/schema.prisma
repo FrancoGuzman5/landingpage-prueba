@@ -44,7 +44,13 @@ model Tour {
   itinerario     Json?                      // [{ dia, titulo, descripcion }] día a día.
                                             // null → la ficha no muestra la sección
   accommodation  Json?                      // { nombre, descripcion, amenities[] }
+  publicado      Boolean   @default(true)    // false = borrador: se puede preparar una ruta
+                                             // sin que aparezca en la web. Por defecto true
+                                             // para que las que ya existen sigan visibles.
   createdAt      DateTime  @default(now())
+  // El @default(now()) no es decorativo: sin él, la migración intentaría crear
+  // una columna NOT NULL sin valor y fallaría en las filas que ya existen.
+  updatedAt      DateTime  @default(now()) @updatedAt
 
   bookings Booking[]
 }
