@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Save, Trash2, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import type { Tour } from "@/lib/tours";
+import SubirFoto from "@/components/SubirFoto";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
@@ -215,19 +216,17 @@ export default function ExpedicionForm({ token, expedicion }: Props) {
           />
         </label>
 
-        <label className={etiqueta}>
+        {/* div y no label: el selector lleva su propio botón, y un label
+            envolviéndolo haría que un clic en cualquier parte abriera el
+            explorador de archivos dos veces. */}
+        <div className={etiqueta}>
           Foto de portada
-          <input
-            className={campo}
-            value={form.image}
-            onChange={(e) => set("image", e.target.value)}
-            placeholder="/images/fondo_torres.jpg"
-          />
+          <SubirFoto valor={form.image} onChange={(url) => set("image", url)} />
           <span className="mt-1 block text-xs text-kumelenSand/50">
-            Por ahora se indica la ruta de una imagen ya cargada. La subida de
-            fotos desde acá viene en el siguiente paso.
+            Se optimiza sola antes de subir: puedes elegirla directo desde el
+            celular. La foto nueva se ve en la web al guardar los cambios.
           </span>
-        </label>
+        </div>
       </section>
 
       {/* ─── Fechas y duración ─────────────────────────────── */}
