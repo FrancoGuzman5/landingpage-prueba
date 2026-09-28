@@ -6,6 +6,8 @@
 
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { Map } from "lucide-react";
 import { authOptions } from "@/lib/auth";
 import BookingsPanel, { type Booking } from "@/components/BookingsPanel";
 
@@ -36,9 +38,18 @@ export default async function AdminPage() {
       <div className="mx-auto max-w-6xl">
         <p className="font-artifact text-[30px] text-dorado">Panel</p>
         <h1 className="font-poppins font-bold text-3xl mb-2">Reservas</h1>
-        <p className="text-kumelenSand/70 mb-8">
+        <p className="text-kumelenSand/70 mb-6">
           {bookings.length} {bookings.length === 1 ? "reserva" : "reservas"} en total
         </p>
+
+        <Link
+          href="/admin/expediciones"
+          className="mb-8 inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-2.5
+                     font-poppins text-sm font-semibold text-white transition hover:bg-white/10"
+        >
+          <Map size={16} />
+          Administrar expediciones
+        </Link>
 
         {bookings.length === 0 ? (
           <p className="rounded-xl border border-kumelenGold/20 bg-kumelenBrown p-8 text-center text-kumelenSand/70">
