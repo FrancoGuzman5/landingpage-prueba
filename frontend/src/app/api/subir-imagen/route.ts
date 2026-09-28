@@ -27,11 +27,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "No autorizado" }, { status: 403 });
   }
 
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    // Mensaje explícito: sin él, el error de la librería es críptico y parece
-    // un fallo del código cuando en realidad falta configuración.
+  // Dos formas válidas de autenticarse contra el Blob:
+  //  - BLOB_READ_WRITE_TOKEN: token fijo. Es la única que funciona en local.
+  //  - OIDC: en los deploys, Vercel entrega una identidad temporal y basta con
+  //    BLOB_STORE_ID. Vercel recomienda revocar el token fijo cuando ya no se
+  //    usa fuera de su plataforma; si solo se exigiera el token, esa
+  //    recomendación rompería la subida en producción.
+  // Mensaje explícito si no hay ninguna: el error de la librería es críptico y
+  // parece un fallo del código cuando en realidad falta configuración.
+  if (!process.env.BLOB_READ_WRITE_TOKEN && !process.env.BLOB_STORE_ID) {
     return NextResponse.json(
-      { error: "Falta configurar BLOB_READ_WRITE_TOKEN en el entorno." },
+      { error: "Falta configurar el almacenamiento de fotos (Vercel Blob) en el entorno." },
       { status: 500 }
     );
   }
