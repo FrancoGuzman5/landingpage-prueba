@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { register, login, getMe, updateMe } = require("../controllers/authController");
 const authenticate = require("../middlewares/authMiddleware");
+const { limitarLogin, limitarRegistro } = require("../middlewares/rateLimit");
 
 /**
  * @route  POST /auth/register
@@ -9,7 +10,7 @@ const authenticate = require("../middlewares/authMiddleware");
  * @body   { name, email, password, phone? }
  * @returns user sin password
  */
-router.post("/register", register);
+router.post("/register", limitarRegistro, register);
 
 /**
  * @route  POST /auth/login
@@ -17,7 +18,7 @@ router.post("/register", register);
  * @body   { email, password }
  * @returns { token, user }
  */
-router.post("/login", login);
+router.post("/login", limitarLogin, login);
 
 // GET /auth/me → Perfil del usuario actual
 router.get("/me", authenticate, getMe);

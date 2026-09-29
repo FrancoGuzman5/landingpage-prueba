@@ -3,6 +3,7 @@ const router = express.Router();
 const authenticate = require("../middlewares/authMiddleware");
 const optionalAuth = require("../middlewares/optionalAuth");
 const authorize = require("../middlewares/authorize");
+const { limitarReservas } = require("../middlewares/rateLimit");
 const {
   createBooking,
   getAllBookings,
@@ -13,8 +14,10 @@ const {
   deleteBooking
 } = require("../controllers/bookingsController");
 
-// Crear reserva: público con sesión opcional (invitado o usuario logueado)
-router.post("/", optionalAuth, createBooking);
+// Crear reserva: público con sesión opcional (invitado o usuario logueado).
+// El límite va primero: rechazar el abuso antes de validar tokens o tocar la
+// base de datos es lo más barato.
+router.post("/", limitarReservas, optionalAuth, createBooking);
 
 // Mis reservas: el usuario autenticado ve las suyas (userId del token)
 router.get("/mine", authenticate, getMyBookings);

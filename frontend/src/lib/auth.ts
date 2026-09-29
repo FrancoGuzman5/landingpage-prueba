@@ -25,7 +25,17 @@ export const authOptions: NextAuthOptions = {
           }),
         });
 
-        if (!res.ok) return null; // 401/500 → credenciales inválidas
+        // Solo un 401 significa de verdad "credenciales inválidas". Tratar todo
+        // error igual le decía "contraseña incorrecta" a alguien bloqueado por
+        // demasiados intentos, que entonces seguía probando y gastaba justo
+        // los intentos que lo tenían bloqueado. Lanzar un Error hace que
+        // NextAuth entregue su mensaje en `res.error` de signIn(), y así la
+        // página de login puede explicar qué pasó.
+        if (res.status === 429) throw new Error("DEMASIADOS_INTENTOS");
+        // Backend caído o despertando (Render duerme en el plan gratis): no es
+        // culpa de la contraseña, y decírselo haría que la cambie sin motivo.
+        if (res.status >= 500) throw new Error("SERVIDOR_NO_DISPONIBLE");
+        if (!res.ok) return null; // 401 → credenciales inválidas
 
         const data = await res.json(); // { token, user }
         if (!data?.user) return null;

@@ -30,7 +30,14 @@ export default function LoginPage() {
     setLoading(false);
 
     if (res?.error) {
-      setError("Correo o contraseña incorrectos.");
+      // Los códigos vienen de authorize() en src/lib/auth.ts.
+      setError(
+        res.error === "DEMASIADOS_INTENTOS"
+          ? "Demasiados intentos fallidos. Por seguridad, espera 15 minutos antes de volver a intentarlo."
+          : res.error === "SERVIDOR_NO_DISPONIBLE"
+            ? "El servidor no responde en este momento. Espera unos segundos e inténtalo de nuevo."
+            : "Correo o contraseña incorrectos."
+      );
       return;
     }
     router.push("/profile"); // login OK → área protegida
