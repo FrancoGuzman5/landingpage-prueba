@@ -65,6 +65,18 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
+  // Recuperación de contraseña.
+  //
+  // Se guarda el HASH del token, nunca el token: si la base se filtrara, con
+  // el token en claro cualquiera podría cambiar contraseñas ajenas. Es el
+  // mismo principio que con las contraseñas.
+  //
+  // Campos en el usuario y no una tabla aparte a propósito: hay a lo sumo un
+  // token vivo por cuenta. Pedir otro enlace pisa el anterior, así que el
+  // enlace viejo deja de funcionar solo — sin tener que limpiarlo.
+  resetTokenHash   String?   @unique
+  resetTokenExpira DateTime?
+
   bookings  Booking[]
 }
 

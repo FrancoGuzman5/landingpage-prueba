@@ -1,8 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const { register, login, getMe, updateMe } = require("../controllers/authController");
+const {
+  register,
+  login,
+  getMe,
+  updateMe,
+  solicitarRecuperacion,
+  restablecerContrasena,
+} = require("../controllers/authController");
 const authenticate = require("../middlewares/authMiddleware");
-const { limitarLogin, limitarRegistro } = require("../middlewares/rateLimit");
+const {
+  limitarLogin,
+  limitarRegistro,
+  limitarRecuperacionPorIp,
+  limitarRecuperacionPorCorreo,
+  limitarRestablecer,
+} = require("../middlewares/rateLimit");
 
 /**
  * @route  POST /auth/register
@@ -19,6 +32,17 @@ router.post("/register", limitarRegistro, register);
  * @returns { token, user }
  */
 router.post("/login", limitarLogin, login);
+
+// Recuperación de contraseña (públicas: quien la olvidó no tiene sesión).
+// POST /auth/forgot-password  { email }         → envía el enlace por correo
+// POST /auth/reset-password   { token, password } → fija la contraseña nueva
+router.post(
+  "/forgot-password",
+  limitarRecuperacionPorIp,
+  limitarRecuperacionPorCorreo,
+  solicitarRecuperacion
+);
+router.post("/reset-password", limitarRestablecer, restablecerContrasena);
 
 // GET /auth/me → Perfil del usuario actual
 router.get("/me", authenticate, getMe);

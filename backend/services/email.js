@@ -149,4 +149,39 @@ async function notificarNuevaReserva(booking, { esInvitado }) {
   });
 }
 
-module.exports = { enviarCorreo, notificarNuevaReserva, escaparHtml };
+/**
+ * Correo con el enlace para crear una contraseña nueva.
+ * @param minutos  vigencia del enlace, para decirla en el correo.
+ */
+async function enviarRecuperacion({ email, nombre, enlace, minutos }) {
+  const e = escaparHtml;
+  const saludo = nombre ? `Hola, ${e(nombre)}:` : "Hola:";
+
+  const html = `
+  <div style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;max-width:520px;margin:0 auto;color:#1A1D1A">
+    <h2 style="margin:0 0 16px;color:#0F3D2E">Restablece tu contraseña</h2>
+    <p>${saludo}</p>
+    <p>Recibimos una solicitud para cambiar la contraseña de tu cuenta en Kumelen Endémico.</p>
+    <p style="margin:24px 0">
+      <a href="${e(enlace)}" style="background:#A8501F;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600">Crear una contraseña nueva</a>
+    </p>
+    <p style="font-size:14px;color:#6b6b6b">El enlace funciona una sola vez y vence en ${minutos} minutos.</p>
+    <p style="font-size:14px;color:#6b6b6b"><strong>Si no fuiste tú, ignora este correo.</strong> Tu contraseña no cambia hasta que alguien abra el enlace y elija una nueva.</p>
+    <p style="font-size:12px;color:#9b9b9b;word-break:break-all">Si el botón no funciona, copia esta dirección en tu navegador:<br>${e(enlace)}</p>
+  </div>`;
+
+  const text = [
+    nombre ? `Hola, ${nombre}:` : "Hola:",
+    "",
+    "Recibimos una solicitud para cambiar la contraseña de tu cuenta en Kumelen Endémico.",
+    "",
+    `Crea una contraseña nueva aquí: ${enlace}`,
+    "",
+    `El enlace funciona una sola vez y vence en ${minutos} minutos.`,
+    "Si no fuiste tú, ignora este correo: tu contraseña no cambia hasta que alguien abra el enlace y elija una nueva.",
+  ].join("\n");
+
+  return enviarCorreo({ to: email, subject: "Restablece tu contraseña de Kumelen", html, text });
+}
+
+module.exports = { enviarCorreo, notificarNuevaReserva, enviarRecuperacion, escaparHtml };

@@ -80,4 +80,53 @@ const limitarReservas = rateLimit({
   },
 });
 
-module.exports = { limitarLogin, limitarRegistro, limitarReservas };
+/**
+ * Recuperación de contraseña: dos límites encadenados, porque cada pedido
+ * envía un correo y hay dos formas distintas de abusar de eso.
+ *
+ * Por IP (5/hora): frena a quien dispara pedidos en masa desde su conexión.
+ * Acá la IP sí es real: el formulario lo llama el navegador directamente.
+ */
+const limitarRecuperacionPorIp = rateLimit({
+  ...comun,
+  windowMs: 60 * MINUTO,
+  limit: 5,
+  message: { error: "Demasiadas solicitudes desde tu conexión. Inténtalo de nuevo en una hora." },
+});
+
+/**
+ * Por correo (3/hora): el límite por IP no alcanza para proteger a una
+ * persona concreta. Alguien con varias conexiones podría llenarle la bandeja
+ * de correos de recuperación a otra persona. Este tope protege al dueño del
+ * correo, venga de donde venga el ataque.
+ */
+const limitarRecuperacionPorCorreo = rateLimit({
+  ...comun,
+  windowMs: 60 * MINUTO,
+  limit: 3,
+  keyGenerator: (req) => `recuperar:${String(req.body?.email ?? "").trim().toLowerCase()}`,
+  message: {
+    error: "Ya enviamos varios enlaces a este correo. Revisa tu bandeja y la carpeta de spam, o inténtalo en una hora.",
+  },
+});
+
+/**
+ * Restablecer: 10 por IP cada 15 minutos.
+ * Adivinar un token de 256 bits es inviable, así que esto no es la defensa
+ * principal; evita que alguien martille el endpoint gratis.
+ */
+const limitarRestablecer = rateLimit({
+  ...comun,
+  windowMs: 15 * MINUTO,
+  limit: 10,
+  message: { error: "Demasiados intentos. Espera 15 minutos e inténtalo de nuevo." },
+});
+
+module.exports = {
+  limitarLogin,
+  limitarRegistro,
+  limitarReservas,
+  limitarRecuperacionPorIp,
+  limitarRecuperacionPorCorreo,
+  limitarRestablecer,
+};
