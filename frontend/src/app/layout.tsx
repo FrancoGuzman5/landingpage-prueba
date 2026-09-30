@@ -8,6 +8,7 @@ import ConditionalNav from "@/components/ConditionalNav";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { SITE_URL, NOMBRE_SITIO, conAvisoDemo } from "@/lib/sitio";
 
 const poppins = localFont({
   variable: "--font-poppins",
@@ -46,12 +47,36 @@ const artifact = localFont({
   ],
 });
 
+const DESCRIPCION =
+  "Expediciones en grupos pequeños por el desierto de Atacama y la Patagonia, " +
+  "con guías registrados en SERNATUR. Viajes de autor, sin prisa y con propósito.";
+
 export const metadata: Metadata = {
+  // Base para convertir en absolutas las URLs relativas de la metadata,
+  // empezando por la imagen de Open Graph (ver lib/sitio.ts).
+  metadataBase: new URL(SITE_URL),
+
   // Título orientado a búsqueda: primero lo que se ofrece, después la marca.
   title: "Expediciones en grupos pequeños por Chile | Kumelen Endémico",
-  description:
-    "Expediciones en grupos pequeños por el desierto de Atacama y la Patagonia, " +
-    "con guías registrados en SERNATUR. Viajes de autor, sin prisa y con propósito.",
+  description: DESCRIPCION,
+
+  // Vista previa al compartir un enlace por WhatsApp, Instagram o Facebook.
+  // Es lo que ve primero quien recibe el link, antes de decidir si lo abre:
+  // sin esto el enlace aparece pelado, sin imagen ni descripción.
+  // La imagen sale de app/opengraph-image.jpg (Next arma la etiqueta con su
+  // ancho, alto y texto alternativo).
+  openGraph: {
+    type: "website",
+    locale: "es_CL",
+    siteName: NOMBRE_SITIO,
+    title: "El Chile que no sale en el itinerario | Kumelen Endémico",
+    description: conAvisoDemo(DESCRIPCION),
+  },
+  // summary_large_image: imagen grande en vez de la miniatura cuadrada.
+  // X (Twitter) toma la imagen de og:image cuando no hay una propia.
+  twitter: {
+    card: "summary_large_image",
+  },
 
   // Este sitio es una demostración, no la web operativa de Kumelen. Fuera del
   // buscador para que nadie llegue por casualidad y crea que está contratando

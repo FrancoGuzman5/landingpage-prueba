@@ -14,7 +14,11 @@
 // El texto se acorta con clases responsive, no midiendo el ancho en JS: eso
 // provocaría parpadeo entre el render del servidor y el del cliente.
 
+import { ES_DEMO } from "@/lib/sitio";
+
 export default function AvisoDemo() {
+  // Mismo interruptor que el aviso de las vistas previas (lib/sitio.ts).
+  if (!ES_DEMO) return null;
   return (
     <span
       className="shrink-0 rounded-full bg-arena px-2.5 py-1 font-poppins text-[10px]

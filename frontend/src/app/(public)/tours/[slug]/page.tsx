@@ -23,6 +23,63 @@ import {
   mostrarDescuento,
 } from "@/lib/tours";
 import ReservaForm from "@/components/ReservaForm";
+import { NOMBRE_SITIO, conAvisoDemo } from "@/lib/sitio";
+import type { Metadata } from "next";
+
+/**
+ * Vista previa propia de cada expedición: al compartir su link se ve su
+ * foto, su nombre, cuánto dura y desde cuánto cuesta, en vez de la imagen
+ * genérica del sitio.
+ *
+ * El fetch es el mismo que hace la página: Next lo deduplica, así que no se
+ * pide dos veces al backend.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const tour = await fetchTourBySlug(slug);
+  if (!tour) return { title: `Expedición no encontrada | ${NOMBRE_SITIO}` };
+
+  const titulo = `${tour.title} | ${NOMBRE_SITIO}`;
+  // Duración antes que precio, igual que en las tarjetas: el número solo
+  // espanta si llega sin contexto.
+  const resumen = tour.description.length > 140
+    ? tour.description.slice(0, 140).replace(/\s+\S*$/, "") + "…"
+    : tour.description;
+  const descripcion = conAvisoDemo(
+    `${formatDuracion(tour.durationDays)} · desde ${formatCLP(tour.price)} por persona. ${resumen}`
+  );
+
+  // La foto pasa por el optimizador de Next a 1200px. Las originales pesan
+  // hasta ~500 KB, y WhatsApp tiende a omitir la imagen en vistas previas
+  // pesadas. Medido: a quien no pide WebP explícitamente (Facebook, WhatsApp)
+  // el optimizador le entrega JPEG, 440 KB → 136 KB.
+  const imagen = tour.image
+    ? `/_next/image?url=${encodeURIComponent(tour.image)}&w=1200&q=75`
+    : null;
+
+  return {
+    title: titulo,
+    description: descripcion,
+    // openGraph se repite completo a propósito: Next no fusiona este objeto
+    // con el del layout, lo reemplaza entero. Sin repetirlos se perderían el
+    // nombre del sitio y el idioma.
+    openGraph: {
+      type: "website",
+      locale: "es_CL",
+      siteName: NOMBRE_SITIO,
+      title: titulo,
+      description: descripcion,
+      url: `/tours/${slug}`,
+      ...(imagen && {
+        images: [{ url: imagen, width: 1200, alt: `Paisaje de ${tour.title}, ${tour.location}` }],
+      }),
+    },
+  };
+}
 
 // Fecha ISO → "19 nov 2026". timeZone UTC: las fechas se guardan como día
 // puro, y sin esto en Chile (UTC-3) se mostraban corridas un día hacia atrás.
